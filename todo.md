@@ -28,13 +28,13 @@
 - [✔] Create endpoint to store user preferences
 
 ### 4. Frontend - Authentication Pages & Components
-- [ ] Create login page component
-- [ ] Create registration page component
-- [ ] Create form validation using TypeScript DTOs
-- [ ] Implement JWT token storage (localStorage/cookies)
-- [ ] Create auth context/provider for global state
-- [ ] Set up protected routes middleware
-- [ ] Create logout functionality
+- [✔] Create login page component
+- [✔] Create registration page component
+- [✔] Create form validation using TypeScript DTOs
+- [✔] Implement JWT token storage (localStorage/cookies)
+- [✔] Create auth context/provider for global state
+- [✔] Set up protected routes middleware
+- [✔] Create logout functionality
 
 ---
 
