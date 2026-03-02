@@ -11,6 +11,7 @@ import { SimulationHistory } from './entities/simulation-history.entity';
 import { SimulatorModule } from './simulator/simulator.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { InvestmentCategoryModule } from './investment-category/investment-category.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { UserModule } from './user/user.module';
     AuthModule,
     UserModule,
     SimulatorModule,
+    InvestmentCategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

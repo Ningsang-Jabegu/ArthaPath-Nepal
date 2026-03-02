@@ -71,16 +71,16 @@
 
 ### 8. Investment Knowledge Database (Backend)
 - [✔] Create InvestmentCategory entity (name, type, returns, risk level, liquidity, lock-in, description)
-- [ ] Seed database with investment categories:
-  - [ ] Stocks
-  - [ ] Mutual Funds
-  - [ ] Bonds
-  - [ ] Fixed Deposit (FD)
-  - [ ] Gold
-  - [ ] Real Estate
-  - [ ] Business
-- [ ] Create endpoint to retrieve all investment categories
-- [ ] Create endpoint to filter categories by criteria
+- [✔] Seed database with investment categories:
+  - [✔] Stocks
+  - [✔] Mutual Funds
+  - [✔] Bonds
+  - [✔] Fixed Deposit (FD)
+  - [✔] Gold
+  - [✔] Real Estate
+  - [✔] Business
+- [✔] Create endpoint to retrieve all investment categories
+- [✔] Create endpoint to filter categories by criteria
 
 ### 9. Risk Classification Engine (Backend - NestJS)
 - [✔] Create RiskProfile entity (Conservative, Balanced, Aggressive)
