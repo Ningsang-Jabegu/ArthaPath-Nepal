@@ -29,7 +29,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body className="antialiased bg-(--color-background) text-(--color-text-primary) transition-colors duration-200">
+      <body 
+        suppressHydrationWarning
+        className="antialiased bg-(--color-background) text-(--color-text-primary) transition-colors duration-200"
+      >
         <script
           dangerouslySetInnerHTML={{
             __html: `
