@@ -149,7 +149,7 @@
 - [✔] Integrate with allocation engine
 - [✔] Integrate with projection engine
 - [✔] Store simulation history in database
-- [ ] Handle API errors gracefully
+- [✔] Handle API errors gracefully
 
 ---
 

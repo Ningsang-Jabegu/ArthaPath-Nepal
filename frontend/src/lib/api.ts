@@ -5,7 +5,7 @@
 
 import { AuthResponse, UserDto } from '@/types/auth';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 interface ApiRequestInit extends RequestInit {
   headers?: Record<string, string>;
@@ -64,10 +64,17 @@ export async function apiRequest<T>(
     headers['Authorization'] = `Bearer ${accessToken}`;
   }
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-  });
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers,
+    });
+  } catch {
+    throw new Error(
+      'Unable to connect to server. Please ensure backend is running on http://localhost:3001.'
+    );
+  }
 
   // Handle 401 - try to refresh token
   if (response.status === 401) {
@@ -79,10 +86,17 @@ export async function apiRequest<T>(
 
         // Retry original request with new token
         headers['Authorization'] = `Bearer ${newTokens.access_token}`;
-        const retryResponse = await fetch(url, {
-          ...options,
-          headers,
-        });
+        let retryResponse: Response;
+        try {
+          retryResponse = await fetch(url, {
+            ...options,
+            headers,
+          });
+        } catch {
+          throw new Error(
+            'Unable to connect to server. Please ensure backend is running on http://localhost:3001.'
+          );
+        }
 
         if (!retryResponse.ok) {
           throw new Error(`API Error: ${retryResponse.status}`);
