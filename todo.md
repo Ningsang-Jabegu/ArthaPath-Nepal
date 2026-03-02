@@ -115,7 +115,7 @@
   - [✔] Include initial capital + monthly contributions
   - [✔] Return total contributions and estimated gains
 - [✔] Create endpoint to generate projections
-- [ ] Write unit tests for projection calculations
+- [✔] Write unit tests for projection calculations
 
 ---
 
