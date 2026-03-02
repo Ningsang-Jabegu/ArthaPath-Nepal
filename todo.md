@@ -102,7 +102,7 @@
   - [✔] Apply time-horizon adjustment to base allocation
   - [✔] Calculate capital distribution per category
   - [✔] Create endpoint to generate allocation plan
-- [ ] Write unit tests for allocation logic
+- [✔] Write unit tests for allocation logic
 
 ### 11. Projection Engine (Backend - NestJS)
 - [✔] Implement compound interest formula:
