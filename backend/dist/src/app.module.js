@@ -19,6 +19,7 @@ const investment_category_entity_1 = require("./entities/investment-category.ent
 const simulation_history_entity_1 = require("./entities/simulation-history.entity");
 const simulator_module_1 = require("./simulator/simulator.module");
 const auth_module_1 = require("./auth/auth.module");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -46,6 +47,7 @@ exports.AppModule = AppModule = __decorate([
                 logging: process.env.NODE_ENV === 'development',
             }),
             auth_module_1.AuthModule,
+            user_module_1.UserModule,
             simulator_module_1.SimulatorModule,
         ],
         controllers: [app_controller_1.AppController],

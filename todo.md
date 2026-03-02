@@ -21,11 +21,11 @@
 - [✔] Add rate limiting middleware
 
 ### 3. User Module (Backend - NestJS)
-- [ ] Create User profile schema (name, email, preferences)
-- [ ] Create UserPreference entity (risk tolerance, liquidity need, emergency fund status)
-- [ ] Implement user profile retrieval endpoint
-- [ ] Implement user profile update endpoint
-- [ ] Create endpoint to store user preferences
+- [✔] Create User profile schema (name, email, preferences)
+- [✔] Create UserPreference entity (risk tolerance, liquidity need, emergency fund status)
+- [✔] Implement user profile retrieval endpoint
+- [✔] Implement user profile update endpoint
+- [✔] Create endpoint to store user preferences
 
 ### 4. Frontend - Authentication Pages & Components
 - [ ] Create login page component

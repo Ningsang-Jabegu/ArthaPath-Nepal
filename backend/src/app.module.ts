@@ -10,6 +10,7 @@ import { InvestmentCategory } from './entities/investment-category.entity';
 import { SimulationHistory } from './entities/simulation-history.entity';
 import { SimulatorModule } from './simulator/simulator.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AuthModule } from './auth/auth.module';
       logging: process.env.NODE_ENV === 'development',
     }),
     AuthModule,
+    UserModule,
     SimulatorModule,
   ],
   controllers: [AppController],
