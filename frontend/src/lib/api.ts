@@ -219,3 +219,51 @@ export const userApi = {
       }),
     }),
 };
+
+export interface SimulatorInputDto {
+  initial_capital: number;
+  monthly_contribution: number;
+  duration_years: number;
+  risk_tolerance: 'Low' | 'Medium' | 'High';
+  liquidity_need: 'Low' | 'Medium' | 'High';
+  has_emergency_fund: boolean;
+}
+
+export interface SimulatorResultDto {
+  risk_profile: 'Conservative' | 'Balanced' | 'Aggressive';
+  allocation: {
+    'Mutual Fund': number;
+    Stocks: number;
+    'Fixed Deposit': number;
+    Bonds: number;
+    Gold: number;
+    'Real Estate': number;
+    Business: number;
+  };
+  capital_distribution: Record<string, number>;
+  projection: {
+    conservative: number;
+    expected: number;
+    optimistic: number;
+    total_contributions: number;
+    estimated_gain_conservative: number;
+    estimated_gain_expected: number;
+    estimated_gain_optimistic: number;
+  };
+  yearly_projection: Array<{
+    year: number;
+    conservative: number;
+    expected: number;
+    optimistic: number;
+  }>;
+}
+
+export const simulatorApi = {
+  runSimulation: async (
+    payload: SimulatorInputDto,
+  ): Promise<SimulatorResultDto> =>
+    apiRequest<SimulatorResultDto>('/simulator/run', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+};

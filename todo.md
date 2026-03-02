@@ -133,15 +133,15 @@
 - [✔] Create SimulationHistory entity to store inputs
 
 ### 13. Input Form - Frontend Component
-- [ ] Create multi-step form component:
-  - [ ] Step 1: Capital input fields
-  - [ ] Step 2: Risk tolerance selector
-  - [ ] Step 3: Timeline & liquidity inputs
-  - [ ] Step 4: Review & submit
-- [ ] Implement client-side form validation
-- [ ] Create form error messaging
-- [ ] Add helpful tooltips/descriptions for each field
-- [ ] Implement form data persistence (prevent data loss)
+- [✔] Create multi-step form component:
+  - [✔] Step 1: Capital input fields
+  - [✔] Step 2: Risk tolerance selector
+  - [✔] Step 3: Timeline & liquidity inputs
+  - [✔] Step 4: Review & submit
+- [✔] Implement client-side form validation
+- [✔] Create form error messaging
+- [✔] Add helpful tooltips/descriptions for each field
+- [✔] Implement form data persistence (prevent data loss)
 
 ### 14. Form Submission & Risk Calculation Flow
 - [✔] Create API call to submit user input
