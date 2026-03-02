@@ -90,7 +90,7 @@
   - [✔] Calculate risk score from user-selected risk tolerance
   - [✔] Aggregate scores to determine profile (Conservative/Balanced/Aggressive)
 - [✔] Create endpoint to calculate risk profile from user inputs
-- [ ] Write unit tests for risk scoring logic
+- [✔] Write unit tests for risk scoring logic
 
 ### 10. Allocation Engine (Backend - NestJS)
 - [✔] Create AllocationMatrix entity (risk profile → percentage allocation per category)
