@@ -24,11 +24,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable}`}
+    >
+      <body className="antialiased bg-(--color-background) text-(--color-text-primary) transition-colors duration-200">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = localStorage.getItem('arthapath-theme');
+                if (theme && theme !== 'system') {
+                  document.documentElement.setAttribute('data-theme', theme);
+                } else if (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+              })()
+            `,
+          }}
+        />
         <AuthProvider>
           {children}
         </AuthProvider>

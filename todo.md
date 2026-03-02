@@ -41,11 +41,11 @@
 ## PHASE 1.5: Design System & Core UI Components
 
 ### 5. Design System Setup
-- [ ] Define CSS variables for color tokens (dark mode)
-- [ ] Define CSS variables for color tokens (light mode)
-- [ ] Set up typography scale (H1-H4, Body, Label)
-- [ ] Create spacing/grid utility classes
-- [ ] Test theme toggle functionality in browser
+- [✔] Define CSS variables for color tokens (dark mode)
+- [✔] Define CSS variables for color tokens (light mode)
+- [✔] Set up typography scale (H1-H4, Body, Label)
+- [✔] Create spacing/grid utility classes
+- [✔] Test theme toggle functionality in browser
 
 ### 6. Core UI Components (Reusable)
 - [ ] Create Header component with logo, navigation, theme toggle, profile menu
