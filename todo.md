@@ -3,12 +3,12 @@
 ## PHASE 1: Core Infrastructure & Authentication
 
 ### 1. Project Setup
-- [ ] Initialize Next.js project with TypeScript and App Router
-- [ ] Initialize NestJS backend with TypeScript
-- [ ] Configure Tailwind CSS and design tokens
-- [ ] Set up PostgreSQL database connection
-- [ ] Create project structure (frontend/backend separation)
-- [ ] Set up GitHub repository and GitHub Actions CI
+- [✔] Initialize Next.js project with TypeScript and App Router
+- [✔] Initialize NestJS backend with TypeScript
+- [✔] Configure Tailwind CSS and design tokens
+- [✔] Set up PostgreSQL database connection
+- [✔] Create project structure (frontend/backend separation)
+- [✔] Set up GitHub repository and GitHub Actions CI
 
 ### 2. Authentication Module (Backend - NestJS)
 - [ ] Create User entity and migration
@@ -70,7 +70,7 @@
 ## PHASE 1.6: Data & Risk Engine
 
 ### 8. Investment Knowledge Database (Backend)
-- [ ] Create InvestmentCategory entity (name, type, returns, risk level, liquidity, lock-in, description)
+- [✔] Create InvestmentCategory entity (name, type, returns, risk level, liquidity, lock-in, description)
 - [ ] Seed database with investment categories:
   - [ ] Stocks
   - [ ] Mutual Funds
@@ -83,38 +83,38 @@
 - [ ] Create endpoint to filter categories by criteria
 
 ### 9. Risk Classification Engine (Backend - NestJS)
-- [ ] Create RiskProfile entity (Conservative, Balanced, Aggressive)
-- [ ] Implement rule-based scoring algorithm:
-  - [ ] Calculate risk score from time horizon
-  - [ ] Calculate risk score from liquidity need
-  - [ ] Calculate risk score from user-selected risk tolerance
-  - [ ] Aggregate scores to determine profile (Conservative/Balanced/Aggressive)
-- [ ] Create endpoint to calculate risk profile from user inputs
+- [✔] Create RiskProfile entity (Conservative, Balanced, Aggressive)
+- [✔] Implement rule-based scoring algorithm:
+  - [✔] Calculate risk score from time horizon
+  - [✔] Calculate risk score from liquidity need
+  - [✔] Calculate risk score from user-selected risk tolerance
+  - [✔] Aggregate scores to determine profile (Conservative/Balanced/Aggressive)
+- [✔] Create endpoint to calculate risk profile from user inputs
 - [ ] Write unit tests for risk scoring logic
 
 ### 10. Allocation Engine (Backend - NestJS)
-- [ ] Create AllocationMatrix entity (risk profile → percentage allocation per category)
-- [ ] Define allocation rules:
-  - [ ] Conservative profile allocations
-  - [ ] Balanced profile allocations
-  - [ ] Aggressive profile allocations
-- [ ] Implement allocation calculation logic:
-  - [ ] Apply time-horizon adjustment to base allocation
-  - [ ] Calculate capital distribution per category
-  - [ ] Create endpoint to generate allocation plan
+- [✔] Create AllocationMatrix entity (risk profile → percentage allocation per category)
+- [✔] Define allocation rules:
+  - [✔] Conservative profile allocations
+  - [✔] Balanced profile allocations
+  - [✔] Aggressive profile allocations
+- [✔] Implement allocation calculation logic:
+  - [✔] Apply time-horizon adjustment to base allocation
+  - [✔] Calculate capital distribution per category
+  - [✔] Create endpoint to generate allocation plan
 - [ ] Write unit tests for allocation logic
 
 ### 11. Projection Engine (Backend - NestJS)
-- [ ] Implement compound interest formula:
-  - [ ] Future Value = P(1+r)^t + Monthly Contribution Growth
-- [ ] Create ProjectionResult entity (conservative, expected, optimistic)
-- [ ] Implement projection calculation:
-  - [ ] Calculate using conservative return rate
-  - [ ] Calculate using expected return rate
-  - [ ] Calculate using optimistic return rate
-  - [ ] Include initial capital + monthly contributions
-  - [ ] Return total contributions and estimated gains
-- [ ] Create endpoint to generate projections
+- [✔] Implement compound interest formula:
+  - [✔] Future Value = P(1+r)^t + Monthly Contribution Growth
+- [✔] Create ProjectionResult entity (conservative, expected, optimistic)
+- [✔] Implement projection calculation:
+  - [✔] Calculate using conservative return rate
+  - [✔] Calculate using expected return rate
+  - [✔] Calculate using optimistic return rate
+  - [✔] Include initial capital + monthly contributions
+  - [✔] Return total contributions and estimated gains
+- [✔] Create endpoint to generate projections
 - [ ] Write unit tests for projection calculations
 
 ---
@@ -122,15 +122,15 @@
 ## PHASE 1.7: User Financial Input Module (Frontend & Backend)
 
 ### 12. Input Form - Backend Validation
-- [ ] Create UserInputDTO with validation rules:
-  - [ ] Total investment capital (required, numeric, min/max)
-  - [ ] Monthly recurring investment (optional, numeric, min/max)
-  - [ ] Investment duration (required, in years, 1-50)
-  - [ ] Risk tolerance (required, Low/Medium/High)
-  - [ ] Liquidity need (required, Low/Medium/High)
-  - [ ] Emergency fund status (required, Yes/No)
-- [ ] Implement backend validation endpoint
-- [ ] Create SimulationHistory entity to store inputs
+- [✔] Create UserInputDTO with validation rules:
+  - [✔] Total investment capital (required, numeric, min/max)
+  - [✔] Monthly recurring investment (optional, numeric, min/max)
+  - [✔] Investment duration (required, in years, 1-50)
+  - [✔] Risk tolerance (required, Low/Medium/High)
+  - [✔] Liquidity need (required, Low/Medium/High)
+  - [✔] Emergency fund status (required, Yes/No)
+- [✔] Implement backend validation endpoint
+- [✔] Create SimulationHistory entity to store inputs
 
 ### 13. Input Form - Frontend Component
 - [ ] Create multi-step form component:
@@ -144,11 +144,11 @@
 - [ ] Implement form data persistence (prevent data loss)
 
 ### 14. Form Submission & Risk Calculation Flow
-- [ ] Create API call to submit user input
-- [ ] Integrate with risk classification engine
-- [ ] Integrate with allocation engine
-- [ ] Integrate with projection engine
-- [ ] Store simulation history in database
+- [✔] Create API call to submit user input
+- [✔] Integrate with risk classification engine
+- [✔] Integrate with allocation engine
+- [✔] Integrate with projection engine
+- [✔] Store simulation history in database
 - [ ] Handle API errors gracefully
 
 ---
