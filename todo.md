@@ -11,14 +11,14 @@
 - [✔] Set up GitHub repository and GitHub Actions CI
 
 ### 2. Authentication Module (Backend - NestJS)
-- [ ] Create User entity and migration
-- [ ] Implement user registration endpoint with validation
-- [ ] Implement login endpoint
-- [ ] Configure JWT authentication strategy
-- [ ] Implement JWT token generation and refresh logic
-- [ ] Set up bcrypt for password hashing
-- [ ] Create auth guards for protected routes
-- [ ] Add rate limiting middleware
+- [✔] Create User entity and migration
+- [✔] Implement user registration endpoint with validation
+- [✔] Implement login endpoint
+- [✔] Configure JWT authentication strategy
+- [✔] Implement JWT token generation and refresh logic
+- [✔] Set up bcrypt for password hashing
+- [✔] Create auth guards for protected routes
+- [✔] Add rate limiting middleware
 
 ### 3. User Module (Backend - NestJS)
 - [ ] Create User profile schema (name, email, preferences)
