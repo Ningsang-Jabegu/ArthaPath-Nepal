@@ -8,3 +8,12 @@ export { Sidebar } from './sidebar';
 export { Modal } from './modal';
 export { Skeleton, SkeletonGroup } from './skeleton';
 export { ThemeToggle, useTheme } from './theme-toggle';
+export { AppLayout } from './app-layout';
+export { Footer } from './footer';
+export {
+  PageTemplate,
+  DashboardPage,
+  SimulatorPage,
+  ExplorePage,
+  EducationPage,
+} from './page-templates';

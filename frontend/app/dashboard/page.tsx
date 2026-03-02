@@ -1,13 +1,14 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/auth-context';
+import React from 'react';
 import { ProtectedRoute } from '@/components/protected-route';
-import AuthFormButton from '@/components/auth-form-button';
+import { AppLayout, DashboardPage, Card, Button } from '@/components';
+import { useAuth } from '@/context/auth-context';
+import { useRouter } from 'next/navigation';
 
-function DashboardContent() {
-  const router = useRouter();
+export default function Dashboard() {
   const { user, logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = () => {
     logout();
@@ -15,130 +16,86 @@ function DashboardContent() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Header */}
-      <header className="fixed top-0 right-0 left-0 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-800">
-        <div className="flex items-center justify-between px-6 py-4">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            ArthaPath
-          </h1>
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <p className="text-sm font-medium text-gray-900 dark:text-white">
-                {user?.name}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {user?.email}
-              </p>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 font-medium text-white transition-colors hover:bg-red-700"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="mt-20 w-full px-6 py-8">
-        <div className="max-w-6xl">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Welcome, {user?.name}!
-          </h2>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
-            You have successfully logged in. More features coming soon.
-          </p>
-
-          {/* Dashboard Grid */}
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Card 1 */}
-            <div className="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-800">
-              <h3 className="font-semibold text-gray-900 dark:text-white">
-                Simulator
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Start planning your investments with our smart simulator
-              </p>
-              <button className="mt-4 rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 dark:hover:bg-gray-700">
-                Open Simulator
-              </button>
-            </div>
-
-            {/* Card 2 */}
-            <div className="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-800">
-              <h3 className="font-semibold text-gray-900 dark:text-white">
-                Learn
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Explore investment education articles and guides
-              </p>
-              <button className="mt-4 rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 dark:hover:bg-gray-700">
-                Browse Articles
-              </button>
-            </div>
-
-            {/* Card 3 */}
-            <div className="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-800">
-              <h3 className="font-semibold text-gray-900 dark:text-white">
-                Profile
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Manage your account settings and preferences
-              </p>
-              <button className="mt-4 rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 dark:hover:bg-gray-700">
-                Edit Profile
-              </button>
-            </div>
-          </div>
-
-          {/* User Info Card */}
-          <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-800">
-            <h3 className="font-semibold text-gray-900 dark:text-white">
-              Account Information
-            </h3>
-            <div className="mt-4 space-y-3">
-              <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
-                <p className="font-medium text-gray-900 dark:text-white">
-                  {user?.email}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Name</p>
-                <p className="font-medium text-gray-900 dark:text-white">
-                  {user?.name}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Member Since
-                </p>
-                <p className="font-medium text-gray-900 dark:text-white">
-                  {new Date(user?.created_at || '').toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-}
-
-/**
- * Dashboard Page
- * Protected route - requires authentication
- */
-export default function DashboardPage() {
-  return (
     <ProtectedRoute>
-      <DashboardContent />
+      <AppLayout>
+        <DashboardPage>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-(--spacing-lg) mb-(--spacing-lg)">
+            {/* Total Capital Card */}
+            <Card variant="metric" title="Total Capital">
+              <p className="text-3xl font-bold text-(--color-primary) mt-2">₹0</p>
+              <p className="text-caption text-(--color-text-secondary) mt-2">Not invested yet</p>
+            </Card>
+
+            {/* Risk Profile Card */}
+            <Card variant="metric" title="Risk Profile">
+              <p className="text-lg font-semibold text-(--color-primary) mt-2">Not Set</p>
+              <p className="text-caption text-(--color-text-secondary) mt-2">
+                Complete your assessment
+              </p>
+            </Card>
+
+            {/* Monthly Contribution Card */}
+            <Card variant="metric" title="Monthly Contribution">
+              <p className="text-3xl font-bold text-(--color-primary) mt-2">₹0</p>
+              <p className="text-caption text-(--color-text-secondary) mt-2">Not set</p>
+            </Card>
+
+            {/* Duration Card */}
+            <Card variant="metric" title="Investment Duration">
+              <p className="text-3xl font-bold text-(--color-primary) mt-2">-</p>
+              <p className="text-caption text-(--color-text-secondary) mt-2">Years</p>
+            </Card>
+          </div>
+
+          {/* Welcome Card */}
+          <Card variant="summary" title={`Welcome, ${user?.name}!`} interactive>
+            <div className="space-y-4">
+              <p className="text-body text-(--color-text-secondary)">
+                Get started by creating your first investment plan. Answer a few questions about your
+                financial goals, and we'll provide personalized investment recommendations.
+              </p>
+              <div className="flex gap-(--spacing-md) flex-wrap">
+                <Button variant="primary">Start Assessment</Button>
+                <Button variant="secondary">View Education</Button>
+              </div>
+            </div>
+          </Card>
+
+          {/* User Info */}
+          <div className="mt-(--spacing-lg) grid md:grid-cols-2 gap-(--spacing-lg)">
+            <Card title="Your Profile">
+              <div className="space-y-3">
+                <div>
+                  <p className="text-label font-medium text-(--color-text-secondary)">Name</p>
+                  <p className="text-body text-(--color-text-primary)">{user?.name}</p>
+                </div>
+                <div>
+                  <p className="text-label font-medium text-(--color-text-secondary)">Email</p>
+                  <p className="text-body text-(--color-text-primary)">{user?.email}</p>
+                </div>
+                <div>
+                  <p className="text-label font-medium text-(--color-text-secondary)">Member Since</p>
+                  <p className="text-body text-(--color-text-primary)">
+                    {user?.created_at
+                      ? new Date(user.created_at).toLocaleDateString()
+                      : 'Recently'}
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <Card title="Quick Actions">
+              <div className="space-y-2 flex flex-col">
+                <Button variant="primary">Edit Profile</Button>
+                <Button variant="secondary">View Settings</Button>
+                <Button variant="danger" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </div>
+            </Card>
+          </div>
+        </DashboardPage>
+      </AppLayout>
     </ProtectedRoute>
   );
 }
