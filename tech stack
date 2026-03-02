@@ -1,0 +1,488 @@
+🏗 TECH STACK & ARCHITECTURE DOCUMENT
+
+Product: ArthaPath Nepal
+Version: 1.0
+Type: Engineering & Infrastructure Specification
+Product Category: Fintech Web Application
+
+1. Architecture Overview
+
+System Architecture Type:
+Modular Monolith (MVP Phase)
+
+Do NOT start with microservices. That is overengineering.
+
+High-level architecture:
+
+Client (Next.js Frontend)
+↓
+API Layer (NestJS Backend)
+↓
+Business Logic Layer
+↓
+PostgreSQL Database
+↓
+External Services (AI API, Analytics) 2. Frontend Stack
+2.1 Framework
+
+Next.js (App Router)
+
+TypeScript (mandatory)
+
+2.2 Styling
+
+Tailwind CSS
+
+CSS Variables for theme switching
+
+Design tokens defined globally
+
+2.3 UI Components
+
+ShadCN UI (or Radix UI)
+
+Custom reusable components:
+
+Card
+
+MetricCard
+
+ChartContainer
+
+Input
+
+Button
+
+Badge
+
+Modal
+
+2.4 Charts
+
+Recharts (preferred for React integration)
+
+Required charts:
+
+LineChart (projection)
+
+PieChart (allocation)
+
+BarChart (scenario comparison)
+
+3. Backend Stack
+   3.1 Framework
+
+NestJS (Node.js)
+
+TypeScript
+
+Reason:
+
+Structured architecture
+
+Modular services
+
+Built-in validation
+
+Easy integration with frontend stack
+
+4. Backend Modules
+   4.1 Auth Module
+
+Features:
+
+User registration
+
+Login
+
+JWT authentication
+
+Refresh tokens
+
+Password hashing (bcrypt)
+
+Optional future:
+
+Two-factor authentication
+
+4.2 User Module
+
+Stores:
+
+Profile data
+
+Risk preference
+
+Simulation history
+
+Saved plans
+
+4.3 Investment Module
+
+Handles:
+
+Investment categories
+
+Expected return ranges
+
+Risk level
+
+Liquidity
+
+Lock-in period
+
+Metadata
+
+Admin controlled.
+
+4.4 Risk Engine Module
+
+Deterministic scoring system:
+
+Inputs:
+
+Time horizon
+
+Liquidity need
+
+Risk tolerance
+
+Outputs:
+
+Conservative
+
+Balanced
+
+Aggressive
+
+Rule-based only. No AI here.
+
+4.5 Allocation Engine Module
+
+Logic:
+
+Predefined allocation matrix per risk profile
+
+Adjusted by time horizon
+
+Returns percentage breakdown
+
+Example:
+
+Conservative:
+
+50% FD
+
+25% Mutual Fund
+
+15% Bonds
+
+10% Gold
+
+Aggressive:
+
+60% Stocks
+
+20% Mutual Funds
+
+10% Business
+
+10% Gold
+
+4.6 Projection Engine Module
+
+Implements compound growth:
+
+Inputs:
+
+Initial capital
+
+Monthly contribution
+
+Annual return rate
+
+Time horizon
+
+Produces:
+
+Conservative projection
+
+Expected projection
+
+Optimistic projection
+
+Uses formula:
+
+Future Value = P(1+r)^t + Monthly Contribution Growth
+
+4.7 AI Explanation Module
+
+Function:
+
+Accept allocation + projection output
+
+Generate structured explanation
+
+Provide educational narrative
+
+Restrictions:
+
+No guaranteed language
+
+No price prediction
+
+No stock-specific advice
+
+Integration:
+
+OpenAI API via backend only
+
+Prompt templates stored in backend
+
+5. Database
+   5.1 Database Engine
+
+PostgreSQL
+
+Non-negotiable for fintech-level data integrity.
+
+5.2 Core Tables
+
+Users
+
+id
+
+email
+
+password_hash
+
+created_at
+
+InvestmentCategories
+
+id
+
+name
+
+type
+
+expected_return_min
+
+expected_return_max
+
+risk_level
+
+liquidity_score
+
+lock_in_period
+
+description
+
+SimulationHistory
+
+id
+
+user_id
+
+initial_capital
+
+monthly_contribution
+
+duration_years
+
+risk_profile
+
+projection_result
+
+created_at
+
+SavedPlans
+
+id
+
+user_id
+
+allocation_data
+
+projection_data
+
+6. AI Integration
+   6.1 Architecture
+
+AI is not core logic.
+
+Flow:
+
+User Input
+↓
+Risk Engine
+↓
+Allocation Engine
+↓
+Projection Engine
+↓
+AI Explanation Generator
+↓
+Frontend Display
+6.2 Prompt Control
+
+Prompts must:
+
+Be templated
+
+Contain disclaimer injection
+
+Avoid open-ended speculative language
+
+7. Security
+
+Mandatory:
+
+HTTPS only
+
+JWT expiration
+
+Refresh token rotation
+
+Rate limiting (per IP)
+
+Helmet middleware
+
+Input validation using DTOs
+
+SQL injection protection (ORM)
+
+Optional later:
+
+Audit logging
+
+Role-based admin system
+
+8. Hosting & Infrastructure
+   8.1 Frontend Hosting
+
+Vercel (preferred)
+OR
+
+Self-hosted via Docker + NGINX
+
+8.2 Backend Hosting
+
+Railway / Render (MVP)
+OR
+
+DigitalOcean VPS
+
+8.3 Database Hosting
+
+Managed PostgreSQL (Neon, Supabase, DO Managed DB)
+
+9. DevOps
+
+MVP:
+
+GitHub
+
+GitHub Actions CI
+
+Environment variables for secrets
+
+Dockerfile for backend
+
+Future:
+
+Docker Compose
+
+Monitoring (Prometheus)
+
+Logging aggregation
+
+10. Analytics & Monitoring
+
+PostHog (user behavior)
+
+Sentry (error tracking)
+
+Basic server logging
+
+Track:
+
+Simulator usage
+
+Drop-offs
+
+Allocation completion
+
+Errors in projections
+
+11. Performance Considerations
+
+Use SSR for SEO pages
+
+Cache static education pages
+
+Lazy load charts
+
+Use database indexing on:
+
+user_id
+
+created_at
+
+12. Scaling Strategy (Future)
+
+When growth increases:
+
+Separate AI service
+
+Introduce Redis caching
+
+Add queue system for heavy calculations
+
+Introduce read replicas for database
+
+Do not do this before traffic demands it.
+
+13. Development Phases
+
+Phase 1:
+
+Auth
+
+Risk Engine
+
+Allocation Engine
+
+Projection Engine
+
+Basic UI
+
+Phase 2:
+
+AI Explanation
+
+Education Module
+
+Save Plan Feature
+
+Phase 3:
+
+Data automation
+
+Admin dashboard
+
+Analytics refinement
+
+14. Engineering Principles
+
+Strict TypeScript everywhere
+
+DTO validation in backend
+
+Centralized error handling
+
+No business logic in controllers
+
+All financial calculations tested with unit tests
+
+END OF TECH STACK & ARCHITECTURE DOCUMENT v1.0

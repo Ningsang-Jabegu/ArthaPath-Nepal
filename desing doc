@@ -1,0 +1,446 @@
+🎨 DESIGN DOCUMENT
+
+Product: ArthaPath Nepal
+Version: 1.0
+Type: UI/UX & Design System Specification
+Mode: Light + Dark Toggleable
+Design Inspiration: Modern Fintech Dashboard (data-centric, clean, high-contrast, card-based UI)
+
+1. Design Principles
+
+Clarity over decoration.
+
+Data visibility first.
+
+High contrast for financial numbers.
+
+Minimal cognitive overload.
+
+Trust-focused visual tone.
+
+Dark mode default (finance users prefer dashboards at night).
+
+Light mode must feel equally intentional (not inverted lazily).
+
+2. Layout System
+2.1 Grid
+
+Max width: 1440px
+
+Centered layout
+
+8px spacing system
+
+24px outer margin
+
+16px default internal padding
+
+24px section spacing
+
+2.2 Page Structure
+Desktop Layout
+------------------------------------------------
+Header
+------------------------------------------------
+Sidebar | Main Content Area
+        | 
+        | Cards / Charts / Panels
+------------------------------------------------
+Footer
+------------------------------------------------
+Mobile Layout
+Header
+Main Content
+Bottom Navigation
+
+Sidebar collapses into hamburger menu under 768px.
+
+3. Design System
+3.1 Color Tokens
+Dark Mode (Default)
+
+background-primary: #040406
+
+background-secondary: #0F1117
+
+panel-background: #192465
+
+text-primary: #C0C5D4
+
+text-secondary: #8B91A3
+
+accent-primary: #4159CE
+
+accent-hover: #5F74FF
+
+success: #76BC6E
+
+danger: #E63113
+
+warning: #F5A623
+
+border: rgba(255,255,255,0.08)
+
+Light Mode
+
+background-primary: #FAFAFB
+
+background-secondary: #FFFFFF
+
+panel-background: #FFFFFF
+
+text-primary: #182366
+
+text-secondary: #4B587C
+
+accent-primary: #5F86F8
+
+accent-hover: #4159CE
+
+success: #4CAF50
+
+danger: #D32F2F
+
+warning: #C37835
+
+border: rgba(0,0,0,0.08)
+
+4. Typography
+
+Font Family:
+
+Inter (preferred)
+
+Fallback: system-ui, sans-serif
+
+Scale:
+
+H1: 32px, 700
+
+H2: 24px, 600
+
+H3: 20px, 600
+
+H4: 18px, 600
+
+Body Large: 16px, 400
+
+Body Small: 14px, 400
+
+Label: 12px, 500
+
+Financial numbers:
+
+Use tabular numerals
+
+Slightly increased letter spacing
+
+5. Core Components
+5.1 Header
+
+Elements:
+
+Logo (left)
+
+Navigation: Dashboard | Explore | Simulator | Education
+
+Theme toggle (icon switch)
+
+Notification icon
+
+Profile dropdown
+
+Sticky at top.
+Height: 72px.
+
+5.2 Sidebar (Desktop)
+
+Width: 240px
+
+Menu Items:
+
+Dashboard
+
+Investment Plan
+
+Opportunities
+
+Simulator
+
+Education
+
+Settings
+
+Active item:
+
+Accent left border
+
+Slight background highlight
+
+Collapsible on tablet/mobile.
+
+5.3 Card Component
+
+Base Style:
+
+Border radius: 16px
+
+Padding: 20px
+
+Shadow (light): subtle 0 4px 12px rgba(0,0,0,0.05)
+
+Shadow (dark): subtle glow 0 4px 12px rgba(0,0,0,0.5)
+
+Variants:
+
+Summary Card
+
+Metric Card
+
+Chart Card
+
+Allocation Card
+
+5.4 Metric Card
+
+Contains:
+
+Label
+
+Large numeric value
+
+% change indicator (green/red)
+
+Small contextual text
+
+Example:
+"Projected Value (5 Years)"
+NPR 485,000
++32% Expected Growth
+
+5.5 Investment Allocation Card
+
+Contains:
+
+Pie chart (percentage distribution)
+
+Allocation breakdown list
+
+Capital amount per category
+
+Risk label badge
+
+Badge styles:
+
+Low Risk: green background
+
+Medium Risk: orange
+
+High Risk: red
+
+5.6 Chart Components
+
+Charts required:
+
+Line Chart – Projection Growth
+
+Pie Chart – Allocation
+
+Bar Chart – Scenario Comparison
+
+Chart Requirements:
+
+Dark mode compatible colors
+
+Axis labels clear
+
+Tooltips enabled
+
+Smooth animation on load
+
+No heavy gradients
+
+5.7 Input Components
+
+Input Fields:
+
+Amount (numeric)
+
+Monthly contribution (numeric)
+
+Duration (dropdown)
+
+Risk slider (Low–Medium–High)
+
+Input Design:
+
+12px radius
+
+Clear focus outline (accent color)
+
+Inline validation errors in red
+
+5.8 Buttons
+
+Primary Button:
+
+Accent background
+
+White text
+
+Hover lighten 5%
+
+Secondary Button:
+
+Transparent
+
+Accent border
+
+Accent text
+
+Danger Button:
+
+Red background
+
+White text
+
+6. Theme Toggle System
+
+Theme stored in:
+
+LocalStorage
+
+Default: Dark
+
+Implementation rule:
+
+Use CSS variables or design tokens.
+
+No manual class overrides per component.
+
+Entire app must switch via theme provider.
+
+7. Pages & Layout Behavior
+7.1 Dashboard Page
+
+Contains:
+
+Summary Cards (Total Capital, Risk Profile)
+
+Allocation Card
+
+Projection Chart
+
+AI Explanation Panel
+
+7.2 Explore Page
+
+Contains:
+
+Search bar
+
+Filter panel
+
+Investment category cards
+
+Sorting dropdown
+
+Filters:
+
+Risk level
+
+Investment type
+
+Duration
+
+Liquidity
+
+7.3 Simulator Page
+
+Contains:
+
+Adjustable input panel
+
+Live-updating projection chart
+
+Allocation breakdown
+
+Scenario comparison table
+
+7.4 Education Page
+
+Card-based articles:
+
+Title
+
+Category
+
+Read more
+
+Risk icon indicator
+
+8. Responsive Rules
+
+Breakpoint: 1024px
+
+Sidebar collapses
+
+Breakpoint: 768px
+
+Two-column layout becomes single column
+
+Charts stack vertically
+
+Breakpoint: 480px
+
+Font sizes scale down slightly
+
+Pie chart simplified
+
+9. Accessibility
+
+WCAG AA contrast compliance
+
+Keyboard navigable
+
+Proper ARIA labels
+
+Screen-reader friendly chart descriptions
+
+10. Micro-Interactions
+
+Theme toggle smooth fade
+
+Chart animate on data load
+
+Button hover scale 1.02
+
+Loading skeletons instead of spinners
+
+Tooltips on risk badges
+
+11. Visual Tone
+
+The product should feel:
+
+Professional
+
+Trustworthy
+
+Calm
+
+Analytical
+
+Mature
+
+Data-driven
+
+Avoid:
+
+Flashy gradients
+
+Crypto-style neon
+
+Meme finance aesthetic
+
+END OF DESIGN DOCUMENT v1.0

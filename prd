@@ -1,0 +1,386 @@
+📄 PRODUCT REQUIREMENTS DOCUMENT (PRD)
+
+Product Name: ArthaPath Nepal
+Version: 1.0
+Document Type: Product Requirements Document
+Product Type: Web-based Fintech Investment Intelligence Platform
+Market: Nepal
+
+1. Product Overview
+1.1 Vision
+
+Build a web-based investment intelligence platform that helps Nepali citizens make structured, risk-aware, long-term investment decisions using data modeling and AI-assisted explanations.
+
+The product provides allocation suggestions, projections, and educational insights. It does NOT execute trades and does NOT provide licensed financial advice.
+
+2. Problem Statement
+
+Most Nepali youth:
+
+Only know IPO and secondary stock trading.
+
+Keep money in low-interest savings accounts.
+
+Lack structured understanding of risk, diversification, and compounding.
+
+Do not know capital allocation strategies based on time horizon and risk tolerance.
+
+There is no centralized platform in Nepal providing:
+
+Structured investment discovery
+
+Risk-based allocation modeling
+
+Compounding simulation
+
+Scenario projections
+
+3. Goals & Objectives
+3.1 Primary Goals
+
+Increase financial literacy among Nepali youth.
+
+Provide structured allocation recommendations.
+
+Encourage long-term disciplined investing.
+
+Provide realistic projections (not speculative promises).
+
+3.2 Non-Goals
+
+Trade execution
+
+Real-time stock speculation
+
+Day-trading signals
+
+Price prediction guarantees
+
+Personalized certified financial advisory
+
+4. Target Users
+4.1 Primary Users
+
+Age: 18–35
+
+Location: Nepal
+
+Capital: NPR 5,000 – NPR 1,000,000
+
+Beginner to intermediate investors
+
+4.2 Secondary Users
+
+Remittance earners
+
+Salaried professionals
+
+Small business owners
+
+5. Core Features (MVP)
+5.1 User Financial Input Module
+
+User inputs:
+
+Total investment capital (required)
+
+Monthly recurring investment (optional)
+
+Investment duration (years)
+
+Risk tolerance (Low / Medium / High)
+
+Liquidity need (Low / Medium / High)
+
+Emergency fund status (Yes/No)
+
+Validation:
+
+Numeric validation
+
+Range constraints
+
+Required field enforcement
+
+5.2 Risk Classification Engine
+
+System calculates:
+
+Risk score based on:
+
+Time horizon
+
+Liquidity need
+
+Risk tolerance
+
+Outputs:
+
+Conservative
+
+Balanced
+
+Aggressive profile
+
+Must be deterministic and rule-based.
+
+5.3 Investment Knowledge Database
+
+Structured internal database including:
+
+For each investment category:
+
+Name
+
+Category (Stocks, Mutual Fund, Bond, FD, Gold, Real Estate, Business)
+
+Expected annual return range
+
+Risk level
+
+Liquidity score
+
+Minimum capital requirement
+
+Lock-in period
+
+Regulation authority
+
+Description
+
+Historical reference performance (if available)
+
+Data initially curated manually.
+
+5.4 Allocation Engine
+
+Based on:
+
+Risk profile
+
+Duration
+
+Capital amount
+
+System calculates:
+
+Percentage allocation across investment types
+
+Capital distribution per category
+
+Diversification logic
+
+Output example:
+
+40% Mutual Funds
+
+30% Stocks
+
+20% Fixed Deposit
+
+10% Gold
+
+No individual stock recommendations in MVP.
+
+5.5 Investment Projection Engine
+
+System calculates:
+
+Using compound interest formula:
+
+Conservative projection
+
+Expected projection
+
+Optimistic projection
+
+Includes:
+
+Initial capital
+
+Monthly contribution
+
+Time horizon
+
+Variable annual return rates
+
+Outputs:
+
+Final projected value range
+
+Total contributions
+
+Estimated gain
+
+5.6 AI Explanation Layer
+
+AI generates:
+
+Human-readable explanation of allocation
+
+Risk explanation
+
+Time-horizon reasoning
+
+Educational context
+
+AI does NOT:
+
+Predict stock prices
+
+Override allocation logic
+
+Guarantee returns
+
+5.7 Investment Simulator
+
+User can:
+
+Adjust capital
+
+Adjust monthly investment
+
+Change duration
+
+Change risk tolerance
+
+System updates projections dynamically.
+
+Includes:
+
+Line chart for growth projection
+
+Pie chart for allocation breakdown
+
+5.8 Educational Module
+
+Each investment category includes:
+
+What it is
+
+How it works in Nepal
+
+Risk explanation
+
+Pros and cons
+
+Suitable investor profile
+
+Worst-case scenario
+
+Content written clearly and realistically.
+
+6. Legal & Compliance
+
+System must include:
+
+Disclaimer: “This platform does not provide financial advice.”
+
+Clear risk warnings.
+
+No return guarantees.
+
+No speculative stock tips.
+
+Compliance review against SEBON and Nepal Rastra Bank regulations (future phase).
+
+7. Data Sources
+
+MVP:
+
+Manually curated database
+
+Official public data sources
+
+Future:
+
+Automated scraping from official financial portals
+
+Public APIs (if available)
+
+No anonymous web scraping for financial recommendations.
+
+8. User Flow (MVP)
+
+User lands on homepage.
+
+User creates account or uses simulator anonymously.
+
+User inputs financial data.
+
+System calculates risk profile.
+
+System generates allocation plan.
+
+System shows projection chart.
+
+AI generates explanation.
+
+User explores education pages.
+
+9. Success Metrics
+
+User sign-ups
+
+Simulator completion rate
+
+Repeat visits
+
+Average session time
+
+Education page engagement
+
+Allocation plan exports
+
+10. Future Roadmap (Post-MVP)
+
+Portfolio tracking
+
+Live market data integration
+
+Personalized alerts
+
+Broker integration
+
+Advanced ML modeling
+
+Remittance investment planning
+
+Mobile app version
+
+11. Risks & Mitigation
+Risk	Mitigation
+Legal liability	Clear disclaimers
+Data inaccuracy	Manual verification
+Unrealistic expectations	Scenario modeling
+Market crash blame	Risk education
+Over-complex UX	Clean dashboard design
+12. MVP Definition (Strict Scope)
+
+MVP includes:
+
+Input form
+
+Risk classification
+
+Allocation engine
+
+Projection engine
+
+AI explanation
+
+Education module
+
+Dark/Light UI
+
+MVP excludes:
+
+Real-time trading
+
+Broker integration
+
+Automated live scraping
+
+Premium subscriptions
+
+END OF PRD v1.0
