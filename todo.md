@@ -203,11 +203,11 @@
 - [✔] Add disclaimer badge/footer to explanation
 
 ### 19. Save Plan Feature (Backend)
-- [ ] Create SavedPlan entity (user_id, allocation_data, projection_data, created_at)
-- [ ] Implement endpoint to save plan
-- [ ] Implement endpoint to retrieve saved plans
-- [ ] Implement endpoint to delete saved plans
-- [ ] Add plan metadata (name, date saved)
+- [✔] Create SavedPlan entity (user_id, allocation_data, projection_data, created_at)
+- [✔] Implement endpoint to save plan
+- [✔] Implement endpoint to retrieve saved plans
+- [✔] Implement endpoint to delete saved plans
+- [✔] Add plan metadata (name, date saved)
 
 ### 20. Save Plan UI (Frontend)
 - [ ] Add "Save This Plan" button on dashboard

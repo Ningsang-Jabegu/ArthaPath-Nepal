@@ -76,8 +76,51 @@ let AiExplanationService = class AiExplanationService {
         }
         catch (error) {
             console.error('Error generating AI explanation:', error);
-            throw new common_1.HttpException('Failed to generate AI explanation. Please try again later.', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            const fallbackExplanation = this.generateFallbackExplanation(request);
+            console.log('Returning fallback explanation due to AI service error');
+            return {
+                explanation: fallbackExplanation,
+                type: request.explanation_type || 'narrative',
+                generated_at: new Date(),
+                model: `${this.MODEL_NAME} (fallback)`,
+            };
         }
+    }
+    generateFallbackExplanation(request) {
+        const riskProfile = request.risk_profile || 'Balanced';
+        const timeHorizon = request.time_horizon || 5;
+        const fallbackText = `
+## Investment Allocation Overview
+
+Based on your profile as a **${riskProfile}** investor with a **${timeHorizon}-year** time horizon, here's an educational explanation of your allocation:
+
+### Risk Profile Meaning
+Your **${riskProfile}** risk profile indicates:
+- **Willingness**: You're comfortable with moderate market fluctuations
+- **Capacity**: Your time horizon allows for recovery from market downturns
+- **Suitability**: This profile balances growth potential with stability
+
+### Your Allocation Strategy
+Your portfolio is distributed across different investment types to balance:
+1. **Growth Assets** - For long-term wealth accumulation
+2. **Stable Assets** - For portfolio stability and predictability
+3. **Protective Assets** - For downside protection and diversification
+
+### Time Horizon Impact
+With a **${timeHorizon}-year** investment horizon:
+- **Longer timeframe**: You can weather market volatility and benefit from compounding
+- **Recovery time**: Market downturns have time to recover before you need the funds
+- **Compounding effect**: Your returns will have multiple years to compound
+
+### What to Remember
+- **Consistency**: Regular monthly investments help smooth out market volatility
+- **Diversification**: Your multi-asset portfolio reduces concentration risk
+- **Long-term view**: Stay focused on your long-term goals despite short-term market changes
+- **No guarantees**: Past performance doesn't guarantee future results
+
+${prompts_1.PromptTemplates.DISCLAIMER}
+    `.trim();
+        return fallbackText;
     }
     selectPrompt(data, explanationType) {
         switch (explanationType) {
@@ -93,33 +136,58 @@ let AiExplanationService = class AiExplanationService {
         }
     }
     async callGeminiAPI(prompt) {
-        const model = this.genAI.getGenerativeModel({
-            model: this.MODEL_NAME,
-            safetySettings: [
-                {
-                    category: generative_ai_1.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                    threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
-                },
-                {
-                    category: generative_ai_1.HarmCategory.HARM_CATEGORY_HARASSMENT,
-                    threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
-                },
-                {
-                    category: generative_ai_1.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-                    threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
-                },
-                {
-                    category: generative_ai_1.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-                    threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
-                },
-            ],
-        });
-        const result = await model.generateContent(prompt);
-        const response = result.response;
-        if (!response.text()) {
-            throw new Error('No response from Gemini API');
+        const safetySettings = [
+            {
+                category: generative_ai_1.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
+            },
+            {
+                category: generative_ai_1.HarmCategory.HARM_CATEGORY_HARASSMENT,
+                threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
+            },
+            {
+                category: generative_ai_1.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
+            },
+            {
+                category: generative_ai_1.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                threshold: generative_ai_1.HarmBlockThreshold.BLOCK_NONE,
+            },
+        ];
+        try {
+            console.log(`Attempting to use model: ${this.MODEL_NAME}`);
+            const model = this.genAI.getGenerativeModel({
+                model: this.MODEL_NAME,
+                safetySettings,
+            });
+            const result = await model.generateContent(prompt);
+            const response = result.response;
+            if (!response.text()) {
+                throw new Error('No response from Gemini API');
+            }
+            return response.text();
         }
-        return response.text();
+        catch (primaryError) {
+            console.error(`Error with primary model ${this.MODEL_NAME}:`, primaryError instanceof Error ? primaryError.message : primaryError);
+            try {
+                console.log('Falling back to gemini-pro model...');
+                const model = this.genAI.getGenerativeModel({
+                    model: 'gemini-pro',
+                    safetySettings,
+                });
+                const result = await model.generateContent(prompt);
+                const response = result.response;
+                if (!response.text()) {
+                    throw new Error('No response from Gemini API (fallback)');
+                }
+                return response.text();
+            }
+            catch (fallbackError) {
+                console.error('Error with fallback model:', fallbackError instanceof Error ? fallbackError.message : fallbackError);
+                console.warn('Both Gemini models failed. Returning educational fallback response.');
+                throw new Error(`AI service unavailable. Please verify your GEMINI_API_KEY is valid and the Generative Language API is enabled. Primary error: ${primaryError instanceof Error ? primaryError.message : 'Unknown error'}`);
+            }
+        }
     }
     generateCacheKey(request) {
         const key = `${request.risk_profile}_${request.explanation_type || 'narrative'}_${request.time_horizon}_${request.risk_tolerance}`;

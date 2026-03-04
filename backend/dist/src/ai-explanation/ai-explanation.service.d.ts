@@ -8,6 +8,7 @@ export declare class AiExplanationService {
     private readonly MODEL_NAME;
     constructor(configService: ConfigService);
     generateExplanation(request: AiExplanationRequestDto): Promise<AiExplanationResponseDto>;
+    private generateFallbackExplanation;
     private selectPrompt;
     private callGeminiAPI;
     private generateCacheKey;

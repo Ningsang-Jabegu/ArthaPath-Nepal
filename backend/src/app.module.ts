@@ -8,11 +8,13 @@ import { User } from './entities/user.entity';
 import { UserPreference } from './entities/user-preference.entity';
 import { InvestmentCategory } from './entities/investment-category.entity';
 import { SimulationHistory } from './entities/simulation-history.entity';
+import { SavedPlan } from './entities/saved-plan.entity';
 import { SimulatorModule } from './simulator/simulator.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { InvestmentCategoryModule } from './investment-category/investment-category.module';
 import { AiExplanationModule } from './ai-explanation/ai-explanation.module';
+import { SavedPlanModule } from './saved-plan/saved-plan.module';
 
 @Module({
   imports: [
@@ -32,7 +34,7 @@ import { AiExplanationModule } from './ai-explanation/ai-explanation.module';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_DATABASE || 'arthapath_nepal',
-      entities: [User, UserPreference, InvestmentCategory, SimulationHistory],
+      entities: [User, UserPreference, InvestmentCategory, SimulationHistory, SavedPlan],
       synchronize: process.env.NODE_ENV === 'development', // Only in development!
       logging: process.env.NODE_ENV === 'development',
     }),
@@ -41,6 +43,7 @@ import { AiExplanationModule } from './ai-explanation/ai-explanation.module';
     SimulatorModule,
     InvestmentCategoryModule,
     AiExplanationModule,
+    SavedPlanModule,
   ],
   controllers: [AppController],
   providers: [AppService],
