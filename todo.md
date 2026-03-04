@@ -304,13 +304,13 @@
 ## PHASE 2.3: Explore Page
 
 ### 26. Explore Page - Backend API
-- [ ] Create endpoint to list all investment opportunities
-- [ ] Implement filtering by:
-  - [ ] Risk level
-  - [ ] Investment type
-  - [ ] Duration/lock-in period
-  - [ ] Liquidity score
-- [ ] Implement sorting options (by risk, return, liquidity)
+- [✔] Create endpoint to list all investment opportunities
+- [✔] Implement filtering by:
+  - [✔] Risk level
+  - [✔] Investment type
+  - [✔] Duration/lock-in period
+  - [✔] Liquidity score
+- [✔] Implement sorting options (by risk, return, liquidity)
 
 ### 27. Explore Page - Frontend
 - [ ] Create Explore page layout
