@@ -17,6 +17,7 @@ import { InvestmentCategoryModule } from './investment-category/investment-categ
 import { AiExplanationModule } from './ai-explanation/ai-explanation.module';
 import { SavedPlanModule } from './saved-plan/saved-plan.module';
 import { EducationModule } from './education/education.module';
+import { ExploreModule } from './explore/explore.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { EducationModule } from './education/education.module';
     AiExplanationModule,
     SavedPlanModule,
     EducationModule,
+    ExploreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
