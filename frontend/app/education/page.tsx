@@ -160,7 +160,7 @@ export default function Education() {
                     <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                       <div className="space-y-3 h-full flex flex-col">
                         {/* Title */}
-                        <h3 className="text-lg font-semibold text-(--color-text-primary) line-clamp-2 flex-grow">
+                        <h3 className="text-lg font-semibold text-(--color-text-primary) line-clamp-2 grow">
                           {article.title}
                         </h3>
 
@@ -179,7 +179,7 @@ export default function Education() {
                         </div>
 
                         {/* Preview */}
-                        <p className="text-sm text-(--color-text-secondary) line-clamp-3 flex-grow">
+                        <p className="text-sm text-(--color-text-secondary) line-clamp-3 grow">
                           {article.content.substring(0, 150)}...
                         </p>
 

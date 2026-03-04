@@ -119,7 +119,7 @@ export default function EducationDetailPage() {
           <Card>
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-4">
-                <div className="flex-grow">
+                <div className="grow">
                   <h1 className="text-3xl font-bold text-(--color-text-primary) mb-2">
                     {article.title}
                   </h1>
