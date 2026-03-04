@@ -10,10 +10,10 @@ export declare class AiExplanationRequestDto {
     capital_distribution: Record<string, number>;
     projection: ProjectionDataDto;
     time_horizon: number;
-    monthly_contribution: number;
+    monthly_contribution?: number;
     risk_tolerance: string;
     liquidity_need: string;
-    explanation_type: string;
+    explanation_type?: string;
 }
 export declare class AiExplanationResponseDto {
     explanation: string;

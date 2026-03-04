@@ -34,7 +34,7 @@ export class AiExplanationRequestDto {
 
   @IsNumber()
   @IsOptional()
-  monthly_contribution: number = 0;
+  monthly_contribution?: number = 0;
 
   @IsEnum(['LOW', 'MEDIUM', 'HIGH'])
   risk_tolerance: string;
@@ -44,7 +44,7 @@ export class AiExplanationRequestDto {
 
   @IsEnum(['allocation', 'risk_profile', 'time_horizon', 'narrative'])
   @IsOptional()
-  explanation_type: string = 'narrative';
+  explanation_type?: string = 'narrative';
 }
 
 export class AiExplanationResponseDto {

@@ -64,13 +64,13 @@ export class AiExplanationService {
           totalContributions: request.projection.total_contributions,
         },
         timeHorizon: request.time_horizon,
-        monthlyContribution: request.monthly_contribution,
+        monthlyContribution: request.monthly_contribution ?? 0,
         riskTolerance: request.risk_tolerance as 'LOW' | 'MEDIUM' | 'HIGH',
         liquidityNeed: request.liquidity_need as 'LOW' | 'MEDIUM' | 'HIGH',
       };
 
       // Select prompt template based on explanation type
-      const prompt = this.selectPrompt(promptData, request.explanation_type);
+      const prompt = this.selectPrompt(promptData, request.explanation_type ?? 'narrative');
 
       // Call Gemini API
       const explanation = await this.callGeminiAPI(prompt);

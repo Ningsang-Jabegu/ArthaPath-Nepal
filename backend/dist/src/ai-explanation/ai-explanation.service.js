@@ -56,11 +56,11 @@ let AiExplanationService = class AiExplanationService {
                     totalContributions: request.projection.total_contributions,
                 },
                 timeHorizon: request.time_horizon,
-                monthlyContribution: request.monthly_contribution,
+                monthlyContribution: request.monthly_contribution ?? 0,
                 riskTolerance: request.risk_tolerance,
                 liquidityNeed: request.liquidity_need,
             };
-            const prompt = this.selectPrompt(promptData, request.explanation_type);
+            const prompt = this.selectPrompt(promptData, request.explanation_type ?? 'narrative');
             const explanation = await this.callGeminiAPI(prompt);
             if (prompts_1.PromptTemplates.hasPricePredictions(explanation)) {
                 console.warn('AI response contained price predictions. Filtering content.');
