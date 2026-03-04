@@ -3,12 +3,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ProtectedRoute } from '@/components/protected-route';
 import { AppLayout, DashboardPage, Card, Button, ExplanationPanel } from '@/components';
+import { SavePlanModal } from '@/components/save-plan-modal';
+import { SavedPlansList } from '@/components/saved-plans-list';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import {
   simulatorApi,
   type SimulatorInputDto,
   type SimulatorResultDto,
+  type SavedPlanResponseDto,
 } from '@/lib/api';
 import { AllocationPieChart, ProjectionLineChart } from '@/components/charts';
 
@@ -62,10 +65,30 @@ export default function Dashboard() {
   const [simulationResult, setSimulationResult] = useState<SimulatorResultDto | null>(null);
   const [isLoadingSimulation, setIsLoadingSimulation] = useState(false);
   const [simulationError, setSimulationError] = useState('');
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [showSavedPlans, setShowSavedPlans] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   const handleLogout = () => {
     logout();
     router.push('/login');
+  };
+
+  const handleSaveSuccess = () => {
+    setSaveSuccess(true);
+    setTimeout(() => setSaveSuccess(false), 3000);
+  };
+
+  const handleLoadPlan = (plan: SavedPlanResponseDto) => {
+    setFormData({
+      initial_capital: plan.initial_capital,
+      monthly_contribution: plan.monthly_contribution,
+      duration_years: plan.duration_years,
+      risk_tolerance: plan.risk_tolerance,
+      liquidity_need: plan.liquidity_need,
+      has_emergency_fund: plan.has_emergency_fund,
+    });
+    setShowSavedPlans(false);
   };
 
   useEffect(() => {
@@ -285,7 +308,24 @@ export default function Dashboard() {
           <div className="grid gap-6 md:grid-cols-2">
             <Card title="Quick Actions">
               <div className="space-y-2 flex flex-col">
-                <Button variant="primary" onClick={() => router.push('/simulator')}>
+                {saveSuccess && (
+                  <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/40 rounded-md">
+                    <p className="text-sm font-medium text-green-700 dark:text-green-400">
+                      ✓ Plan saved successfully!
+                    </p>
+                  </div>
+                )}
+                <Button
+                  variant="primary"
+                  disabled={!simulationResult}
+                  onClick={() => setIsSaveModalOpen(true)}
+                >
+                  {simulationResult ? 'Save This Plan' : 'Run Simulation First'}
+                </Button>
+                <Button variant="secondary" onClick={() => setShowSavedPlans(!showSavedPlans)}>
+                  {showSavedPlans ? 'Hide' : 'View'} Saved Plans
+                </Button>
+                <Button variant="secondary" onClick={() => router.push('/simulator')}>
                   Start Assessment
                 </Button>
                 <Button variant="secondary" onClick={() => router.push('/education')}>
@@ -304,6 +344,23 @@ export default function Dashboard() {
               explanationType="narrative"
             />
           </div>
+
+          {showSavedPlans && (
+            <div className="mt-6">
+              <h2 className="text-h4 font-semibold mb-4" style={{ color: 'var(--color-text-primary)' }}>
+                Your Saved Plans
+              </h2>
+              <SavedPlansList onLoadPlan={handleLoadPlan} />
+            </div>
+          )}
+
+          <SavePlanModal
+            isOpen={isSaveModalOpen}
+            onClose={() => setIsSaveModalOpen(false)}
+            simulationResult={simulationResult}
+            formData={formData}
+            onSaveSuccess={handleSaveSuccess}
+          />
         </DashboardPage>
       </AppLayout>
     </ProtectedRoute>

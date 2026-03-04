@@ -314,3 +314,73 @@ export const aiExplanationApi = {
       body: JSON.stringify(payload),
     }),
 };
+
+// SavedPlan DTOs
+export interface SavePlanDto {
+  plan_name: string;
+  description?: string;
+  initial_capital: number;
+  monthly_contribution: number;
+  duration_years: number;
+  risk_tolerance: 'Low' | 'Medium' | 'High';
+  liquidity_need: 'Low' | 'Medium' | 'High';
+  has_emergency_fund: boolean;
+  risk_profile: 'CONSERVATIVE' | 'BALANCED' | 'AGGRESSIVE';
+  allocation: Record<string, number>;
+  capital_distribution: Record<string, number>;
+  projection: {
+    conservative: number;
+    expected: number;
+    optimistic: number;
+    total_contributions: number;
+  };
+}
+
+export interface UpdatePlanDto {
+  plan_name?: string;
+  description?: string;
+}
+
+export interface SavedPlanResponseDto extends SavePlanDto {
+  id: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export const savedPlansApi = {
+  savePlan: async (payload: SavePlanDto): Promise<SavedPlanResponseDto> =>
+    apiRequest<SavedPlanResponseDto>('/saved-plans', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  getAll: async (): Promise<SavedPlanResponseDto[]> =>
+    apiRequest<SavedPlanResponseDto[]>('/saved-plans', {
+      method: 'GET',
+    }),
+
+  getById: async (planId: string): Promise<SavedPlanResponseDto> =>
+    apiRequest<SavedPlanResponseDto>(`/saved-plans/${planId}`, {
+      method: 'GET',
+    }),
+
+  update: async (
+    planId: string,
+    payload: UpdatePlanDto,
+  ): Promise<SavedPlanResponseDto> =>
+    apiRequest<SavedPlanResponseDto>(`/saved-plans/${planId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    }),
+
+  delete: async (planId: string): Promise<void> =>
+    apiRequest<void>(`/saved-plans/${planId}`, {
+      method: 'DELETE',
+    }),
+
+  getCount: async (): Promise<{ count: number }> =>
+    apiRequest<{ count: number }>('/saved-plans/stats/count', {
+      method: 'GET',
+    }),
+};
