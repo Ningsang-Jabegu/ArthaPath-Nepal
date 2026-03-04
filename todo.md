@@ -183,17 +183,17 @@
 ## PHASE 2: AI Integration & Advanced Features
 
 ### 17. AI Explanation Module (Backend)
-- [ ] Set up OpenAI API integration
-- [ ] Create prompt templates for:
-  - [ ] Allocation explanation
-  - [ ] Risk profile reasoning
-  - [ ] Time-horizon context
-  - [ ] Educational narrative
-- [ ] Implement request to AI with allocation + projection data
-- [ ] Add disclaimer injection to all AI responses
-- [ ] Create endpoint to generate AI explanations
-- [ ] Add response caching to reduce API calls
-- [ ] Write tests to ensure no price predictions in output
+- [✔] Set up Gemeni (free tier) API integration
+- [✔] Create prompt templates for:
+  - [✔] Allocation explanation
+  - [✔] Risk profile reasoning
+  - [✔] Time-horizon context
+  - [✔] Educational narrative
+- [✔] Implement request to AI with allocation + projection data
+- [✔] Add disclaimer injection to all AI responses
+- [✔] Create endpoint to generate AI explanations
+- [✔] Add response caching to reduce API calls
+- [✔] Write tests to ensure no price predictions in output
 
 ### 18. AI Explanation UI (Frontend)
 - [ ] Create ExplanationPanel component

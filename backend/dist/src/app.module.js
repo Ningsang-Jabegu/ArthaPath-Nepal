@@ -21,6 +21,7 @@ const simulator_module_1 = require("./simulator/simulator.module");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
 const investment_category_module_1 = require("./investment-category/investment-category.module");
+const ai_explanation_module_1 = require("./ai-explanation/ai-explanation.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -51,6 +52,7 @@ exports.AppModule = AppModule = __decorate([
             user_module_1.UserModule,
             simulator_module_1.SimulatorModule,
             investment_category_module_1.InvestmentCategoryModule,
+            ai_explanation_module_1.AiExplanationModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

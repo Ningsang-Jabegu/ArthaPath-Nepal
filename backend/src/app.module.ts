@@ -12,6 +12,7 @@ import { SimulatorModule } from './simulator/simulator.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { InvestmentCategoryModule } from './investment-category/investment-category.module';
+import { AiExplanationModule } from './ai-explanation/ai-explanation.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { InvestmentCategoryModule } from './investment-category/investment-categ
     UserModule,
     SimulatorModule,
     InvestmentCategoryModule,
+    AiExplanationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
