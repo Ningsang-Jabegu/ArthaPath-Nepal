@@ -27,6 +27,7 @@ const ai_explanation_module_1 = require("./ai-explanation/ai-explanation.module"
 const saved_plan_module_1 = require("./saved-plan/saved-plan.module");
 const education_module_1 = require("./education/education.module");
 const explore_module_1 = require("./explore/explore.module");
+const admin_module_1 = require("./admin/admin.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -68,6 +69,7 @@ exports.AppModule = AppModule = __decorate([
             saved_plan_module_1.SavedPlanModule,
             education_module_1.EducationModule,
             explore_module_1.ExploreModule,
+            admin_module_1.AdminModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -1,11 +1,12 @@
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
+import { User, UserRole } from '../entities/user.entity';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import { ConfigService } from '@nestjs/config';
 export interface JwtPayload {
     sub: string;
     email: string;
+    role: UserRole;
 }
 export interface AuthResponse {
     access_token: string;
@@ -14,6 +15,7 @@ export interface AuthResponse {
         id: string;
         email: string;
         name: string;
+        role: UserRole;
     };
 }
 export declare class AuthService {

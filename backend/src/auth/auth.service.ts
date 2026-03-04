@@ -8,13 +8,14 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { User } from '../entities/user.entity';
+import { User, UserRole } from '../entities/user.entity';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import { ConfigService } from '@nestjs/config';
 
 export interface JwtPayload {
   sub: string;
   email: string;
+  role: UserRole;
 }
 
 export interface AuthResponse {
@@ -24,6 +25,7 @@ export interface AuthResponse {
     id: string;
     email: string;
     name: string;
+    role: UserRole;
   };
 }
 
@@ -117,6 +119,7 @@ export class AuthService {
     const payload: JwtPayload = {
       sub: user.id,
       email: user.email,
+      role: user.role,
     };
 
     const accessToken = this.jwtService.sign(payload, {
@@ -136,6 +139,7 @@ export class AuthService {
         id: user.id,
         email: user.email,
         name: user.name,
+        role: user.role,
       },
     };
   }

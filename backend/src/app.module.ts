@@ -18,6 +18,7 @@ import { AiExplanationModule } from './ai-explanation/ai-explanation.module';
 import { SavedPlanModule } from './saved-plan/saved-plan.module';
 import { EducationModule } from './education/education.module';
 import { ExploreModule } from './explore/explore.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { ExploreModule } from './explore/explore.module';
     SavedPlanModule,
     EducationModule,
     ExploreModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],
