@@ -429,3 +429,81 @@ export const educationApi = {
       },
     }).then((articles) => articles.filter((a) => a.category === category)),
 };
+
+// Explore / Investment Opportunity DTOs
+export interface InvestmentOpportunityDto {
+  id: string;
+  name: string;
+  type: 'Stocks' | 'Mutual Fund' | 'Bond' | 'FD' | 'Gold' | 'Real Estate' | 'Business';
+  expected_return_min: number;
+  expected_return_max: number;
+  risk_level: 'Low' | 'Medium' | 'High';
+  liquidity_score: number;
+  lock_in_period: string;
+  minimum_capital: number;
+  description: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type SortBy =
+  | 'risk_asc'
+  | 'risk_desc'
+  | 'return_asc'
+  | 'return_desc'
+  | 'liquidity_asc'
+  | 'liquidity_desc'
+  | 'name_asc'
+  | 'name_desc';
+
+export interface ExploreFilterParams {
+  risk_level?: 'Low' | 'Medium' | 'High';
+  investment_type?: 'Stocks' | 'Mutual Fund' | 'Bond' | 'FD' | 'Gold' | 'Real Estate' | 'Business';
+  min_liquidity_score?: number;
+  lock_in_period?: string;
+  max_minimum_capital?: number;
+  sort_by?: SortBy;
+}
+
+export const exploreApi = {
+  getAllOpportunities: async (): Promise<InvestmentOpportunityDto[]> =>
+    apiRequest<InvestmentOpportunityDto[]>('/explore/opportunities', {
+      method: 'GET',
+    }),
+
+  getFilteredOpportunities: async (
+    filters: ExploreFilterParams,
+  ): Promise<InvestmentOpportunityDto[]> => {
+    const params = new URLSearchParams();
+    
+    if (filters.risk_level) params.append('risk_level', filters.risk_level);
+    if (filters.investment_type) params.append('investment_type', filters.investment_type);
+    if (filters.min_liquidity_score !== undefined)
+      params.append('min_liquidity_score', filters.min_liquidity_score.toString());
+    if (filters.lock_in_period) params.append('lock_in_period', filters.lock_in_period);
+    if (filters.max_minimum_capital !== undefined)
+      params.append('max_minimum_capital', filters.max_minimum_capital.toString());
+    if (filters.sort_by) params.append('sort_by', filters.sort_by);
+
+    const query = params.toString();
+    return apiRequest<InvestmentOpportunityDto[]>(
+      `/explore/opportunities/filter${query ? `?${query}` : ''}`,
+      { method: 'GET' },
+    );
+  },
+
+  getLockInPeriods: async (): Promise<string[]> =>
+    apiRequest<string[]>('/explore/lock-in-periods', {
+      method: 'GET',
+    }),
+
+  getStatistics: async (): Promise<{
+    total_opportunities: number;
+    by_risk_level: Record<string, number>;
+    by_type: Record<string, number>;
+    avg_liquidity_score: number;
+  }> =>
+    apiRequest('/explore/statistics', {
+      method: 'GET',
+    }),
+};
