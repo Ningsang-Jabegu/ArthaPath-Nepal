@@ -210,11 +210,16 @@
 - [✔] Add plan metadata (name, date saved)
 
 ### 20. Save Plan UI (Frontend)
-- [ ] Add "Save This Plan" button on dashboard
-- [ ] Create save plan modal/dialog
-- [ ] Allow user to name the plan
-- [ ] Show confirmation after save
-- [ ] Display list of saved plans (on profile/dashboard)
+- [✔] Add "Save This Plan" button on dashboard
+- [✔] Create save plan modal/dialog
+- [✔] Allow user to name the plan
+- [✔] Show confirmation after save
+- [✔] Display list of saved plans (on profile/dashboard)
+- [✔] Create SavedPlansList component with view/edit/delete and load functionality
+- [✔] Integrate SavePlanModal into dashboard UI
+- [✔] Implement "View Saved Plans" collapsible section on dashboard
+- [✔] Add success notification when plan is saved
+- [✔] Implement load plan functionality to restore plan to dashboard form
 
 ---
 
