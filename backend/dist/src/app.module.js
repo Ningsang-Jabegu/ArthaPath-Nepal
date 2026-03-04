@@ -19,6 +19,7 @@ const investment_category_entity_1 = require("./entities/investment-category.ent
 const simulation_history_entity_1 = require("./entities/simulation-history.entity");
 const saved_plan_entity_1 = require("./entities/saved-plan.entity");
 const education_article_entity_1 = require("./entities/education-article.entity");
+const audit_log_entity_1 = require("./entities/audit-log.entity");
 const simulator_module_1 = require("./simulator/simulator.module");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
@@ -28,6 +29,7 @@ const saved_plan_module_1 = require("./saved-plan/saved-plan.module");
 const education_module_1 = require("./education/education.module");
 const explore_module_1 = require("./explore/explore.module");
 const admin_module_1 = require("./admin/admin.module");
+const audit_module_1 = require("./audit/audit.module");
 const http_logger_middleware_1 = require("./middleware/http-logger.middleware");
 let AppModule = class AppModule {
     configure(consumer) {
@@ -61,6 +63,7 @@ exports.AppModule = AppModule = __decorate([
                     simulation_history_entity_1.SimulationHistory,
                     saved_plan_entity_1.SavedPlan,
                     education_article_entity_1.EducationArticle,
+                    audit_log_entity_1.AuditLog,
                 ],
                 synchronize: process.env.NODE_ENV === 'development',
                 logging: process.env.NODE_ENV === 'development',
@@ -74,6 +77,7 @@ exports.AppModule = AppModule = __decorate([
             education_module_1.EducationModule,
             explore_module_1.ExploreModule,
             admin_module_1.AdminModule,
+            audit_module_1.AuditModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

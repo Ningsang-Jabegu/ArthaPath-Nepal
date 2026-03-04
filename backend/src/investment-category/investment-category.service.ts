@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { InvestmentCategory } from '../entities/investment-category.entity';
 import { FilterInvestmentCategoryDto } from './dto/filter-investment-category.dto';
+import { AuditService, IAuditContext } from '../audit/audit.service';
 
 @Injectable()
 export class InvestmentCategoryService implements OnModuleInit {
   constructor(
     @InjectRepository(InvestmentCategory)
     private readonly investmentCategoryRepository: Repository<InvestmentCategory>,
+    private readonly auditService: AuditService,
   ) {}
 
   async onModuleInit(): Promise<void> {
@@ -160,5 +162,109 @@ export class InvestmentCategoryService implements OnModuleInit {
     ];
 
     await this.investmentCategoryRepository.save(categories);
+  }
+
+  /**
+   * Update an investment category with audit logging
+   */
+  async updateCategory(
+    id: string,
+    updateData: Partial<InvestmentCategory>,
+    auditContext?: IAuditContext,
+  ): Promise<InvestmentCategory> {
+    const oldCategory = await this.investmentCategoryRepository.findOne({
+      where: { id },
+    });
+
+    if (!oldCategory) {
+      throw new Error(`Investment category with ID ${id} not found`);
+    }
+
+    // Store old values for audit trail
+    const oldValues = { ...oldCategory };
+
+    // Update the category
+    await this.investmentCategoryRepository.update(id, updateData);
+
+    const updatedCategory = await this.investmentCategoryRepository.findOne({
+      where: { id },
+    });
+
+    if (!updatedCategory) {
+      throw new Error(`Failed to retrieve updated category with ID ${id}`);
+    }
+
+    // Log the update if audit context is provided
+    if (auditContext) {
+      const changedFields = this.getChangedFields(oldValues, updatedCategory);
+      await this.auditService.logUpdate(
+        'investment_category',
+        id,
+        auditContext,
+        oldValues,
+        updatedCategory,
+        `Updated fields: ${changedFields.join(', ')}`,
+      );
+    }
+
+    return updatedCategory;
+  }
+
+  /**
+   * Delete an investment category with audit logging
+   */
+  async deleteCategory(
+    id: string,
+    auditContext?: IAuditContext,
+  ): Promise<void> {
+    const category = await this.investmentCategoryRepository.findOne({
+      where: { id },
+    });
+
+    if (!category) {
+      throw new Error(`Investment category with ID ${id} not found`);
+    }
+
+    // Store old values for audit trail
+    const oldValues = { ...category };
+
+    // Delete the category
+    await this.investmentCategoryRepository.remove(category);
+
+    // Log the deletion if audit context is provided
+    if (auditContext) {
+      await this.auditService.logDelete(
+        'investment_category',
+        id,
+        auditContext,
+        oldValues,
+        `Deleted investment category: ${category.name}`,
+      );
+    }
+  }
+
+  /**
+   * Get audit history for a category
+   */
+  async getCategoryHistory(id: string) {
+    return this.auditService.getEntityChangesSummary('investment_category', id);
+  }
+
+  /**
+   * Helper: Get changed fields between two objects
+   */
+  private getChangedFields(
+    oldValues: Record<string, any>,
+    newValues: Record<string, any>,
+  ): string[] {
+    const changed: string[] = [];
+
+    for (const key in newValues) {
+      if (oldValues[key] !== newValues[key]) {
+        changed.push(key);
+      }
+    }
+
+    return changed;
   }
 }

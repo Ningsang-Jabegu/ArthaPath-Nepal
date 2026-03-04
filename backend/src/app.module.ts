@@ -11,6 +11,7 @@ import { InvestmentCategory } from './entities/investment-category.entity';
 import { SimulationHistory } from './entities/simulation-history.entity';
 import { SavedPlan } from './entities/saved-plan.entity';
 import { EducationArticle } from './entities/education-article.entity';
+import { AuditLog } from './entities/audit-log.entity';
 import { SimulatorModule } from './simulator/simulator.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
@@ -20,6 +21,7 @@ import { SavedPlanModule } from './saved-plan/saved-plan.module';
 import { EducationModule } from './education/education.module';
 import { ExploreModule } from './explore/explore.module';
 import { AdminModule } from './admin/admin.module';
+import { AuditModule } from './audit/audit.module';
 import { HttpLoggerMiddleware } from './middleware/http-logger.middleware';
 
 @Module({
@@ -47,6 +49,7 @@ import { HttpLoggerMiddleware } from './middleware/http-logger.middleware';
         SimulationHistory,
         SavedPlan,
         EducationArticle,
+        AuditLog,
       ],
       synchronize: process.env.NODE_ENV === 'development', // Only in development!
       logging: process.env.NODE_ENV === 'development',
@@ -60,6 +63,7 @@ import { HttpLoggerMiddleware } from './middleware/http-logger.middleware';
     EducationModule,
     ExploreModule,
     AdminModule,
+    AuditModule,
   ],
   controllers: [AppController],
   providers: [AppService],

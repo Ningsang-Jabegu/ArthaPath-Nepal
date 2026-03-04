@@ -17,10 +17,13 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const investment_category_entity_1 = require("../entities/investment-category.entity");
+const audit_service_1 = require("../audit/audit.service");
 let InvestmentCategoryService = class InvestmentCategoryService {
     investmentCategoryRepository;
-    constructor(investmentCategoryRepository) {
+    auditService;
+    constructor(investmentCategoryRepository, auditService) {
         this.investmentCategoryRepository = investmentCategoryRepository;
+        this.auditService = auditService;
     }
     async onModuleInit() {
         await this.seedCategoriesIfEmpty();
@@ -149,11 +152,58 @@ let InvestmentCategoryService = class InvestmentCategoryService {
         ];
         await this.investmentCategoryRepository.save(categories);
     }
+    async updateCategory(id, updateData, auditContext) {
+        const oldCategory = await this.investmentCategoryRepository.findOne({
+            where: { id },
+        });
+        if (!oldCategory) {
+            throw new Error(`Investment category with ID ${id} not found`);
+        }
+        const oldValues = { ...oldCategory };
+        await this.investmentCategoryRepository.update(id, updateData);
+        const updatedCategory = await this.investmentCategoryRepository.findOne({
+            where: { id },
+        });
+        if (!updatedCategory) {
+            throw new Error(`Failed to retrieve updated category with ID ${id}`);
+        }
+        if (auditContext) {
+            const changedFields = this.getChangedFields(oldValues, updatedCategory);
+            await this.auditService.logUpdate('investment_category', id, auditContext, oldValues, updatedCategory, `Updated fields: ${changedFields.join(', ')}`);
+        }
+        return updatedCategory;
+    }
+    async deleteCategory(id, auditContext) {
+        const category = await this.investmentCategoryRepository.findOne({
+            where: { id },
+        });
+        if (!category) {
+            throw new Error(`Investment category with ID ${id} not found`);
+        }
+        const oldValues = { ...category };
+        await this.investmentCategoryRepository.remove(category);
+        if (auditContext) {
+            await this.auditService.logDelete('investment_category', id, auditContext, oldValues, `Deleted investment category: ${category.name}`);
+        }
+    }
+    async getCategoryHistory(id) {
+        return this.auditService.getEntityChangesSummary('investment_category', id);
+    }
+    getChangedFields(oldValues, newValues) {
+        const changed = [];
+        for (const key in newValues) {
+            if (oldValues[key] !== newValues[key]) {
+                changed.push(key);
+            }
+        }
+        return changed;
+    }
 };
 exports.InvestmentCategoryService = InvestmentCategoryService;
 exports.InvestmentCategoryService = InvestmentCategoryService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(investment_category_entity_1.InvestmentCategory)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        audit_service_1.AuditService])
 ], InvestmentCategoryService);
 //# sourceMappingURL=investment-category.service.js.map

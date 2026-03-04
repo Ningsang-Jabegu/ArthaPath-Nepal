@@ -12,12 +12,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const investment_category_entity_1 = require("../entities/investment-category.entity");
 const investment_category_controller_1 = require("./investment-category.controller");
 const investment_category_service_1 = require("./investment-category.service");
+const audit_module_1 = require("../audit/audit.module");
 let InvestmentCategoryModule = class InvestmentCategoryModule {
 };
 exports.InvestmentCategoryModule = InvestmentCategoryModule;
 exports.InvestmentCategoryModule = InvestmentCategoryModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([investment_category_entity_1.InvestmentCategory])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([investment_category_entity_1.InvestmentCategory]), audit_module_1.AuditModule],
         controllers: [investment_category_controller_1.InvestmentCategoryController],
         providers: [investment_category_service_1.InvestmentCategoryService],
         exports: [investment_category_service_1.InvestmentCategoryService],
