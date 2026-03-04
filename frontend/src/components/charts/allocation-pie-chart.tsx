@@ -126,6 +126,9 @@ export const AllocationPieChart: React.FC<AllocationPieChartProps> = ({ data, cl
             outerRadius={120}
             fill="#8884d8"
             dataKey="value"
+            animationDuration={500}
+            animationBegin={0}
+            animationEasing="ease-in-out"
           >
             {data.map((entry, index) => (
               <Cell 

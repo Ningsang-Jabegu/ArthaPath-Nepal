@@ -125,6 +125,8 @@ export const ProjectionLineChart: React.FC<ProjectionLineChartProps> = ({ data, 
             dot={false}
             name="Conservative"
             activeDot={{ r: 6 }}
+            animationDuration={500}
+            isAnimationActive={true}
           />
           <Line
             type="monotone"
@@ -134,6 +136,8 @@ export const ProjectionLineChart: React.FC<ProjectionLineChartProps> = ({ data, 
             dot={false}
             name="Expected"
             activeDot={{ r: 6 }}
+            animationDuration={500}
+            isAnimationActive={true}
           />
           <Line
             type="monotone"
@@ -143,6 +147,8 @@ export const ProjectionLineChart: React.FC<ProjectionLineChartProps> = ({ data, 
             dot={false}
             name="Optimistic"
             activeDot={{ r: 6 }}
+            animationDuration={500}
+            isAnimationActive={true}
           />
         </LineChart>
       </ResponsiveContainer>
