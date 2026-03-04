@@ -384,3 +384,48 @@ export const savedPlansApi = {
       method: 'GET',
     }),
 };
+
+// Education Article DTOs
+export interface EducationArticleDto {
+  id: string;
+  title: string;
+  category:
+    | 'Stocks'
+    | 'Mutual Fund'
+    | 'Bond'
+    | 'Fixed Deposit'
+    | 'Gold'
+    | 'Real Estate'
+    | 'Business'
+    | 'General';
+  content: string;
+  risk_icon: string;
+  image: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export const educationApi = {
+  getAllArticles: async (): Promise<EducationArticleDto[]> =>
+    apiRequest<EducationArticleDto[]>('/education/articles', {
+      method: 'GET',
+    }),
+
+  getArticlesByCategory: async (
+    category:
+      | 'Stocks'
+      | 'Mutual Fund'
+      | 'Bond'
+      | 'Fixed Deposit'
+      | 'Gold'
+      | 'Real Estate'
+      | 'Business'
+      | 'General',
+  ): Promise<EducationArticleDto[]> =>
+    apiRequest<EducationArticleDto[]>('/education/articles/filter', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }).then((articles) => articles.filter((a) => a.category === category)),
+};

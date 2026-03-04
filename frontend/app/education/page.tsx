@@ -1,142 +1,201 @@
 'use client';
 
-import React from 'react';
-import { AppLayout, EducationPage, Card } from '@/components';
+import React, { useEffect, useState, useMemo } from 'react';
+import Link from 'next/link';
+import { AppLayout, EducationPage, Card, Input } from '@/components';
+import { educationApi, EducationArticleDto } from '@/lib/api';
 
-const articles = [
-  {
-    id: 1,
-    title: 'Understanding Stocks',
-    category: 'Stocks',
-    risk: 'high',
-    preview: 'Learn how stock ownership works and how to build a stock portfolio.',
-    icon: '📈',
-  },
-  {
-    id: 2,
-    title: 'Mutual Funds 101',
-    category: 'Mutual Funds',
-    risk: 'medium',
-    preview: 'Discover how mutual funds provide diversification and professional management.',
-    icon: '💼',
-  },
-  {
-    id: 3,
-    title: 'Bond Investing Basics',
-    category: 'Bonds',
-    risk: 'low',
-    preview: 'Understand fixed income securities and how bonds fit into your portfolio.',
-    icon: '🏦',
-  },
-  {
-    id: 4,
-    title: 'Fixed Deposits in Nepal',
-    category: 'Fixed Deposit',
-    risk: 'low',
-    preview: 'Explore safe, guaranteed returns with Fixed Deposits from Nepali banks.',
-    icon: '🔒',
-  },
-  {
-    id: 5,
-    title: 'Gold as an Investment',
-    category: 'Gold',
-    risk: 'medium',
-    preview: 'Why gold is a timeless store of value and how to invest in it.',
-    icon: '✨',
-  },
-  {
-    id: 6,
-    title: 'Real Estate Investment',
-    category: 'Real Estate',
-    risk: 'medium',
-    preview: 'Property investment strategies and considerations for Nepal market.',
-    icon: '🏠',
-  },
-  {
-    id: 7,
-    title: 'The Power of Compound Interest',
-    category: 'General',
-    risk: 'low',
-    preview: "Einstein called it the 8th wonder. Learn why starting early matters.",
-    icon: '⚡',
-  },
-  {
-    id: 8,
-    title: 'Risk and Diversification',
-    category: 'General',
-    risk: 'medium',
-    preview: "Don't put all eggs in one basket: the importance of diversification.",
-    icon: '🎯',
-  },
-];
+type EducationCategory =
+  | 'All'
+  | 'Stocks'
+  | 'Mutual Fund'
+  | 'Bond'
+  | 'Fixed Deposit'
+  | 'Gold'
+  | 'Real Estate'
+  | 'Business'
+  | 'General';
 
 const riskColors: Record<string, string> = {
-  low: 'bg-(--color-success-light) text-(--color-success-dark)',
-  medium: 'bg-(--color-warning-light) text-(--color-warning-dark)',
-  high: 'bg-(--color-error-light) text-(--color-error-dark)',
+  high: 'bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300',
+  medium: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300',
+  low: 'bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300',
 };
 
 const riskLabels: Record<string, string> = {
-  low: 'Low Risk',
-  medium: 'Medium Risk',
   high: 'High Risk',
+  medium: 'Medium Risk',
+  low: 'Low Risk',
+};
+
+const categories: EducationCategory[] = [
+  'All',
+  'Stocks',
+  'Mutual Fund',
+  'Bond',
+  'Fixed Deposit',
+  'Gold',
+  'Real Estate',
+  'Business',
+  'General',
+];
+
+const getRiskLevel = (category: string): string => {
+  const highRisk = ['Stocks', 'Business'];
+  const mediumRisk = ['Mutual Fund', 'Gold', 'Real Estate'];
+  const lowRisk = ['Bond', 'Fixed Deposit', 'General'];
+
+  if (highRisk.includes(category)) return 'high';
+  if (mediumRisk.includes(category)) return 'medium';
+  return 'low';
 };
 
 export default function Education() {
+  const [articles, setArticles] = useState<EducationArticleDto[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<EducationCategory>('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  // Fetch articles on mount
+  useEffect(() => {
+    const fetchArticles = async () => {
+      setIsLoading(true);
+      setError('');
+      try {
+        const data = await educationApi.getAllArticles();
+        setArticles(data);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : 'Failed to load education articles'
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  // Filter articles by category and search query
+  const filteredArticles = useMemo(() => {
+    return articles.filter((article) => {
+      const matchesCategory =
+        selectedCategory === 'All' || article.category === selectedCategory;
+      const matchesSearch =
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.content.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [articles, selectedCategory, searchQuery]);
+
   return (
     <AppLayout>
       <EducationPage>
         <div className="space-y-8">
+          {/* Error message */}
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/40 rounded-md">
+              <p className="text-sm font-medium text-red-700 dark:text-red-400">
+                {error}
+              </p>
+            </div>
+          )}
+
+          {/* Search Bar */}
+          <Card title="Search Articles">
+            <Input
+              type="text"
+              placeholder="Search by title or content..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full"
+            />
+          </Card>
+
           {/* Category Filter */}
           <Card title="Filter by Category">
             <div className="flex flex-wrap gap-2">
-              {['All', 'Stocks', 'Mutual Funds', 'Bonds', 'Fixed Deposit', 'Gold', 'Real Estate'].map(
-                (category) => (
-                  <button
-                    key={category}
-                    className={`px-4 py-2 rounded-full border transition-colors ${
-                      category === 'All'
-                        ? 'bg-(--color-primary) text-(--color-background) border-(--color-primary)'
-                        : 'border-(--color-border) text-(--color-text-primary) hover:border-(--color-primary)'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                )
-              )}
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-full border transition-colors ${
+                    category === selectedCategory
+                      ? 'bg-(--color-primary) text-(--color-background) border-(--color-primary)'
+                      : 'border-(--color-border) text-(--color-text-primary) hover:border-(--color-primary)'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
             </div>
           </Card>
 
           {/* Articles Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-lg)">
-            {articles.map((article) => (
-              <Card key={article.id} title={article.title} interactive>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xl">{article.icon}</span>
-                    <span
-                      className={`px-2 py-1 rounded text-caption font-medium ${riskColors[article.risk]}`}
-                    >
-                      {riskLabels[article.risk]}
-                    </span>
-                  </div>
+          {isLoading ? (
+            <div className="text-center py-12">
+              <p className="text-(--color-text-secondary)">
+                Loading articles...
+              </p>
+            </div>
+          ) : filteredArticles.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-(--color-text-secondary)">
+                No articles found. Try adjusting your filters or search terms.
+              </p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-lg)">
+              {filteredArticles.map((article) => {
+                const riskLevel = getRiskLevel(article.category);
+                return (
+                  <Link
+                    key={article.id}
+                    href={`/education/${article.id}`}
+                    className="no-underline"
+                  >
+                    <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                      <div className="space-y-3 h-full flex flex-col">
+                        {/* Title */}
+                        <h3 className="text-lg font-semibold text-(--color-text-primary) line-clamp-2 flex-grow">
+                          {article.title}
+                        </h3>
 
-                  <p className="text-body text-(--color-text-secondary)">
-                    {article.preview}
-                  </p>
+                        {/* Category and Risk */}
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-sm font-medium text-(--color-text-secondary) px-2 py-1 rounded bg-(--color-border)">
+                            {article.category}
+                          </span>
+                          <span
+                            className={`text-xs font-medium px-2 py-1 rounded ${
+                              riskColors[riskLevel]
+                            }`}
+                          >
+                            {riskLabels[riskLevel]}
+                          </span>
+                        </div>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-label font-medium text-(--color-text-secondary)">
-                      {article.category}
-                    </span>
-                    <button className="text-label font-medium text-(--color-primary) hover:opacity-80 transition-opacity">
-                      Read More →
-                    </button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+                        {/* Preview */}
+                        <p className="text-sm text-(--color-text-secondary) line-clamp-3 flex-grow">
+                          {article.content.substring(0, 150)}...
+                        </p>
+
+                        {/* Read More Button */}
+                        <div className="pt-2 border-t border-(--color-border)">
+                          <button className="text-sm font-medium text-(--color-primary) hover:opacity-80 transition-opacity">
+                            Read More →
+                          </button>
+                        </div>
+                      </div>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </EducationPage>
     </AppLayout>
