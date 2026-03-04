@@ -313,21 +313,21 @@
 - [✔] Implement sorting options (by risk, return, liquidity)
 
 ### 27. Explore Page - Frontend
-- [ ] Create Explore page layout
-- [ ] Implement search bar component
-- [ ] Create filter panel:
-  - [ ] Risk level checkboxes
-  - [ ] Type filter
-  - [ ] Duration filter
-  - [ ] Liquidity filter
-- [ ] Display investment cards in list/grid view
-- [ ] Show key metrics per investment:
-  - [ ] Expected return range
-  - [ ] Risk level
-  - [ ] Liquidity score
-  - [ ] Minimum capital
-  - [ ] Lock-in period
-- [ ] Add toggle between list and grid view
+- [✔] Create Explore page layout
+- [✔] Implement search bar component
+- [✔] Create filter panel:
+  - [✔] Risk level checkboxes
+  - [✔] Type filter
+  - [✔] Duration filter
+  - [✔] Liquidity filter
+- [✔] Display investment cards in list/grid view
+- [✔] Show key metrics per investment:
+  - [✔] Expected return range
+  - [✔] Risk level
+  - [✔] Liquidity score
+  - [✔] Minimum capital
+  - [✔] Lock-in period
+- [✔] Add toggle between list and grid view
 
 ---
 
