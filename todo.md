@@ -340,12 +340,12 @@
 - [✔] Create endpoint to view usage analytics
 
 ### 29. Admin Dashboard (Frontend)
-- [ ] Create admin panel pages:
-  - [ ] Investment categories management
-  - [ ] User statistics
-  - [ ] Simulator usage analytics
-- [ ] Implement CRUD forms for investment categories
-- [ ] Display analytics charts (user signups, simulator completions, etc.)
+- [✔] Create admin panel pages:
+  - [✔] Investment categories management
+  - [✔] User statistics
+  - [✔] Simulator usage analytics
+- [✔] Implement CRUD forms for investment categories
+- [✔] Display analytics charts (user signups, simulator completions, etc.)
 
 ### 30. Analytics & Monitoring Setup
 - [ ] Integrate PostHog for user behavior tracking
