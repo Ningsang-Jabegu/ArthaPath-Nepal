@@ -25,7 +25,7 @@ export class SavedPlan {
   plan_name: string;
 
   @Column({ type: 'varchar', length: 500, nullable: true })
-  description: string;
+  description: string | null;
 
   // Financial Input Data
   @Column({ type: 'int' })
