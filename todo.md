@@ -164,19 +164,19 @@
 - [✔] Add chart legends and tooltips
 
 ### 16. Dashboard Page Layout
-- [ ] Create Dashboard page component
-- [ ] Add Summary Cards:
-  - [ ] Total Capital card
-  - [ ] Risk Profile card (badge + label)
-  - [ ] Monthly Contribution card
-  - [ ] Duration card
-- [ ] Add Metric Cards:
-  - [ ] Projected Value (5 Years) with % growth
-  - [ ] Total Contributions
-  - [ ] Estimated Gain
-- [ ] Add Allocation Card with PieChart
-- [ ] Add Projection Chart (LineChart) with three scenarios
-- [ ] Add placeholder for AI Explanation panel
+- [✔] Create Dashboard page component
+- [✔] Add Summary Cards:
+  - [✔] Total Capital card
+  - [✔] Risk Profile card (badge + label)
+  - [✔] Monthly Contribution card
+  - [✔] Duration card
+- [✔] Add Metric Cards:
+  - [✔] Projected Value (5 Years) with % growth
+  - [✔] Total Contributions
+  - [✔] Estimated Gain
+- [✔] Add Allocation Card with PieChart
+- [✔] Add Projection Chart (LineChart) with three scenarios
+- [✔] Add placeholder for AI Explanation panel
 
 ---
 
