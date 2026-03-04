@@ -156,12 +156,12 @@
 ## PHASE 1.8: Dashboard Page & Initial Charts
 
 ### 15. Chart Components Setup
-- [ ] Install and configure Recharts
-- [ ] Create LineChart component for projection growth (conservative/expected/optimistic)
-- [ ] Create PieChart component for allocation breakdown
-- [ ] Create BarChart component for scenario comparison
-- [ ] Ensure all charts are dark/light mode compatible
-- [ ] Add chart legends and tooltips
+- [✔] Install and configure Recharts
+- [✔] Create LineChart component for projection growth (conservative/expected/optimistic)
+- [✔] Create PieChart component for allocation breakdown
+- [✔] Create BarChart component for scenario comparison
+- [✔] Ensure all charts are dark/light mode compatible
+- [✔] Add chart legends and tooltips
 
 ### 16. Dashboard Page Layout
 - [ ] Create Dashboard page component

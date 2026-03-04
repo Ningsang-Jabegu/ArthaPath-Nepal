@@ -29,19 +29,31 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body 
+      <body
         suppressHydrationWarning
-        className="antialiased bg-(--color-background) text-(--color-text-primary) transition-colors duration-200"
+        className="antialiased transition-colors duration-200"
+        style={{
+          backgroundColor: 'var(--color-background)',
+          color: 'var(--color-text-primary)',
+        }}
       >
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 const theme = localStorage.getItem('arthapath-theme');
+                const html = document.documentElement;
                 if (theme && theme !== 'system') {
-                  document.documentElement.setAttribute('data-theme', theme);
-                } else if (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                  document.documentElement.setAttribute('data-theme', 'dark');
+                  html.setAttribute('data-theme', theme);
+                  if (theme === 'dark') {
+                    html.classList.add('dark');
+                  }
+                } else {
+                  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (isDark) {
+                    html.setAttribute('data-theme', 'dark');
+                    html.classList.add('dark');
+                  }
                 }
               })()
             `,

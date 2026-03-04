@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/context/auth-context';
 import FormInput from '@/components/form-input';
 import AuthFormButton from '@/components/auth-form-button';
+import { SimpleThemeToggle } from '@/components/simple-theme-toggle';
 import { validateRegisterForm } from '@/lib/validation';
 import { ValidationErrors } from '@/lib/validation';
 
@@ -64,30 +65,62 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-800">
+    <div 
+      className="flex min-h-screen items-center justify-center transition-colors"
+      style={{ backgroundColor: 'var(--color-background)' }}
+    >
+      <div 
+        className="w-full max-w-md rounded-xl border p-8 shadow-sm transition-colors"
+        style={{
+          backgroundColor: 'var(--color-background-secondary)',
+          borderColor: 'var(--color-border)'
+        }}
+      >
+        {/* Theme Toggle */}
+        <div className="mb-6 flex justify-end">
+          <SimpleThemeToggle />
+        </div>
+        
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          <h1 
+            className="text-2xl font-semibold"
+            style={{ color: 'var(--color-text-primary)' }}
+          >
             Create Account
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p 
+            className="mt-2 text-sm"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >
             Join ArthaPath and start planning your investments
           </p>
         </div>
 
         {/* Error Messages */}
         {authError && (
-          <div className="mb-4 rounded-lg bg-red-50 p-4 dark:bg-red-900/20">
-            <p className="text-sm font-medium text-red-800 dark:text-red-300">
+          <div 
+            className="mb-4 rounded-lg p-4"
+            style={{ backgroundColor: 'var(--color-error-light)' }}
+          >
+            <p 
+              className="text-sm font-medium"
+              style={{ color: 'var(--color-error)' }}
+            >
               {authError}
             </p>
           </div>
         )}
 
         {generalError && (
-          <div className="mb-4 rounded-lg bg-red-50 p-4 dark:bg-red-900/20">
-            <p className="text-sm font-medium text-red-800 dark:text-red-300">
+          <div 
+            className="mb-4 rounded-lg p-4"
+            style={{ backgroundColor: 'var(--color-error-light)' }}
+          >
+            <p 
+              className="text-sm font-medium"
+              style={{ color: 'var(--color-error)' }}
+            >
               {generalError}
             </p>
           </div>
@@ -124,29 +157,35 @@ export default function RegisterPage() {
           />
 
           {/* Terms Checkbox */}
-          <div className="flex items-start gap-3 rounded-lg bg-gray-50 p-3 dark:bg-gray-700">
+          <div 
+            className="flex items-start gap-3 rounded-lg p-3"
+            style={{ backgroundColor: 'var(--color-background-tertiary)' }}
+          >
             <input
               type="checkbox"
               id="terms"
               checked={agreeToTerms}
               onChange={(e) => setAgreeToTerms(e.target.checked)}
-              className="mt-1 h-4 w-4 cursor-pointer rounded border-gray-300"
+              className="mt-1 h-4 w-4 cursor-pointer rounded"
             />
             <label
               htmlFor="terms"
-              className="cursor-pointer text-sm text-gray-700 dark:text-gray-300"
+              className="cursor-pointer text-sm"
+              style={{ color: 'var(--color-text-primary)' }}
             >
               I agree to the{' '}
               <Link
                 href="/terms"
-                className="font-semibold text-black transition-colors hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
+                className="font-semibold transition-colors"
+                style={{ color: 'var(--color-text-primary)' }}
               >
                 Terms of Service
               </Link>{' '}
               and{' '}
               <Link
                 href="/privacy"
-                className="font-semibold text-black transition-colors hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
+                className="font-semibold transition-colors"
+                style={{ color: 'var(--color-text-primary)' }}
               >
                 Privacy Policy
               </Link>
@@ -160,24 +199,40 @@ export default function RegisterPage() {
 
         {/* Divider */}
         <div className="my-6 flex items-center gap-4">
-          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
-          <span className="text-sm text-gray-500 dark:text-gray-400">or</span>
-          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
+          <div 
+            className="flex-1 border-t"
+            style={{ borderColor: 'var(--color-border)' }}
+          ></div>
+          <span 
+            className="text-sm"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >or</span>
+          <div 
+            className="flex-1 border-t"
+            style={{ borderColor: 'var(--color-border)' }}
+          ></div>
         </div>
 
         {/* Login Link */}
-        <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+        <p 
+          className="text-center text-sm"
+          style={{ color: 'var(--color-text-secondary)' }}
+        >
           Already have an account?{' '}
           <Link
             href="/login"
-            className="font-semibold text-black transition-colors hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
+            className="font-semibold transition-colors"
+            style={{ color: 'var(--color-text-primary)' }}
           >
             Sign in
           </Link>
         </p>
 
         {/* Footer */}
-        <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
+        <p 
+          className="mt-6 text-center text-xs"
+          style={{ color: 'var(--color-text-tertiary)' }}
+        >
           We respect your privacy. Read our policy to learn how we handle data.
         </p>
       </div>

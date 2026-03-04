@@ -48,14 +48,26 @@ export function setTheme(theme: Theme): void {
 
   localStorage.setItem(THEME_STORAGE_KEY, theme);
 
-  // Update HTML attribute for CSS selectors
+  // Update HTML attribute and class for CSS selectors
   const html = document.documentElement;
 
   if (theme === 'system') {
     html.removeAttribute('data-theme');
     // Let CSS media queries handle it
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (isDark) {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
   } else {
     html.setAttribute('data-theme', theme);
+    // Add/remove dark class for Tailwind dark mode
+    if (theme === 'dark') {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
   }
 
   // Trigger any listeners

@@ -21,29 +21,67 @@ export function Card({
   className = '',
   interactive = false,
 }: CardProps) {
-  const baseStyles =
-    'rounded-lg bg-(--color-background) border border-(--color-border) transition-all duration-200';
-
-  const variantStyles: Record<CardVariant, string> = {
-    summary: 'p-(--spacing-lg) shadow-md',
-    metric: 'p-(--spacing-md) shadow-sm',
-    chart: 'p-(--spacing-lg) shadow-md',
-    allocation: 'p-(--spacing-lg) shadow-md',
+  const paddingByVariant: Record<CardVariant, string> = {
+    summary: 'var(--spacing-lg)',
+    metric: 'var(--spacing-md)',
+    chart: 'var(--spacing-lg)',
+    allocation: 'var(--spacing-lg)',
   };
 
-  const interactiveStyles = interactive
-    ? 'hover:shadow-lg hover:border-(--color-primary) cursor-pointer'
-    : '';
+  const shadowByVariant: Record<CardVariant, string> = {
+    summary: 'var(--shadow-md)',
+    metric: 'var(--shadow-sm)',
+    chart: 'var(--shadow-md)',
+    allocation: 'var(--shadow-md)',
+  };
 
   return (
-    <div className={`${baseStyles} ${variantStyles[variant]} ${interactiveStyles} ${className}`}>
+    <div
+      className={`rounded-lg border transition-all duration-200 ${
+        interactive ? 'cursor-pointer' : ''
+      } ${className}`}
+      style={{
+        backgroundColor: 'var(--color-background)',
+        borderColor: 'var(--color-border)',
+        padding: paddingByVariant[variant],
+        boxShadow: shadowByVariant[variant],
+      }}
+      onMouseEnter={
+        interactive
+          ? (e) => {
+              e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
+              e.currentTarget.style.borderColor = 'var(--color-primary)';
+            }
+          : undefined
+      }
+      onMouseLeave={
+        interactive
+          ? (e) => {
+              e.currentTarget.style.boxShadow = shadowByVariant[variant];
+              e.currentTarget.style.borderColor = 'var(--color-border)';
+            }
+          : undefined
+      }
+    >
       {title && (
-        <h3 className="text-h4 font-semibold text-(--color-text-primary) mb-(--spacing-sm)">
+        <h3
+          className="font-semibold mb-2"
+          style={{
+            fontSize: 'var(--text-h4-size)',
+            color: 'var(--color-text-primary)',
+          }}
+        >
           {title}
         </h3>
       )}
       {description && (
-        <p className="text-body-sm text-(--color-text-secondary) mb-(--spacing-md)">
+        <p
+          className="mb-3"
+          style={{
+            fontSize: 'var(--text-body-sm-size)',
+            color: 'var(--color-text-secondary)',
+          }}
+        >
           {description}
         </p>
       )}

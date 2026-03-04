@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/context/auth-context';
 import FormInput from '@/components/form-input';
 import AuthFormButton from '@/components/auth-form-button';
+import { SimpleThemeToggle } from '@/components/simple-theme-toggle';
 import { validateLoginForm } from '@/lib/validation';
 import { ValidationErrors } from '@/lib/validation';
 
@@ -56,30 +57,62 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-800">
+    <div 
+      className="flex min-h-screen items-center justify-center transition-colors"
+      style={{ backgroundColor: 'var(--color-background)' }}
+    >
+      <div 
+        className="w-full max-w-md rounded-xl border p-8 shadow-sm transition-colors"
+        style={{
+          backgroundColor: 'var(--color-background-secondary)',
+          borderColor: 'var(--color-border)'
+        }}
+      >
+        {/* Theme Toggle */}
+        <div className="mb-6 flex justify-end">
+          <SimpleThemeToggle />
+        </div>
+        
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          <h1 
+            className="text-2xl font-semibold"
+            style={{ color: 'var(--color-text-primary)' }}
+          >
             Welcome Back
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p 
+            className="mt-2 text-sm"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >
             Sign in to your ArthaPath account
           </p>
         </div>
 
         {/* Error Messages */}
         {authError && (
-          <div className="mb-4 rounded-lg bg-red-50 p-4 dark:bg-red-900/20">
-            <p className="text-sm font-medium text-red-800 dark:text-red-300">
+          <div 
+            className="mb-4 rounded-lg p-4"
+            style={{ backgroundColor: 'var(--color-error-light)' }}
+          >
+            <p 
+              className="text-sm font-medium"
+              style={{ color: 'var(--color-error)' }}
+            >
               {authError}
             </p>
           </div>
         )}
 
         {generalError && (
-          <div className="mb-4 rounded-lg bg-red-50 p-4 dark:bg-red-900/20">
-            <p className="text-sm font-medium text-red-800 dark:text-red-300">
+          <div 
+            className="mb-4 rounded-lg p-4"
+            style={{ backgroundColor: 'var(--color-error-light)' }}
+          >
+            <p 
+              className="text-sm font-medium"
+              style={{ color: 'var(--color-error)' }}
+            >
               {generalError}
             </p>
           </div>
@@ -112,24 +145,40 @@ export default function LoginPage() {
 
         {/* Divider */}
         <div className="my-6 flex items-center gap-4">
-          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
-          <span className="text-sm text-gray-500 dark:text-gray-400">or</span>
-          <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
+          <div 
+            className="flex-1 border-t"
+            style={{ borderColor: 'var(--color-border)' }}
+          ></div>
+          <span 
+            className="text-sm"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >or</span>
+          <div 
+            className="flex-1 border-t"
+            style={{ borderColor: 'var(--color-border)' }}
+          ></div>
         </div>
 
         {/* Register Link */}
-        <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+        <p 
+          className="text-center text-sm"
+          style={{ color: 'var(--color-text-secondary)' }}
+        >
           Don't have an account?{' '}
           <Link
             href="/register"
-            className="font-semibold text-black transition-colors hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
+            className="font-semibold transition-colors"
+            style={{ color: 'var(--color-text-primary)' }}
           >
             Sign up
           </Link>
         </p>
 
         {/* Footer */}
-        <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
+        <p 
+          className="mt-6 text-center text-xs"
+          style={{ color: 'var(--color-text-tertiary)' }}
+        >
           By signing in, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>
