@@ -13,6 +13,7 @@ const menuItems = [
   { href: '/explore', label: 'Explore', icon: '🔍' },
   { href: '/simulator', label: 'Simulator', icon: '📈' },
   { href: '/education', label: 'Education', icon: '📚' },
+  { href: '/admin', label: 'Admin', icon: '⚙️' },
 ];
 
 export function Sidebar({ isOpen = false, onClose }: SidebarProps) {

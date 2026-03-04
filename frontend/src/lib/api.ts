@@ -507,3 +507,82 @@ export const exploreApi = {
       method: 'GET',
     }),
 };
+
+// Admin API - Investment Category Management & Analytics
+
+export interface CreateCategoryDto {
+  name: string;
+  type: 'Stocks' | 'Mutual Fund' | 'Bond' | 'FD' | 'Gold' | 'Real Estate' | 'Business';
+  expected_return_min: number;
+  expected_return_max: number;
+  risk_level: 'Low' | 'Medium' | 'High';
+  liquidity_score: number;
+  lock_in_period: string;
+  minimum_capital: number;
+  description: string;
+}
+
+export interface UpdateCategoryDto extends Partial<CreateCategoryDto> {}
+
+export interface CategoryDto extends CreateCategoryDto {
+  id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UsageAnalytics {
+  totalUsers: number;
+  totalInvestmentCategories: number;
+  usersByRole: {
+    admin: number;
+    user: number;
+  };
+  categoriesByRiskLevel: {
+    Low: number;
+    Medium: number;
+    High: number;
+  };
+  categoriesByType: Record<string, number>;
+  recentUsers: Array<{
+    id: string;
+    email: string;
+    name: string;
+    created_at: string;
+  }>;
+}
+
+export const adminApi = {
+  // Category Management
+  createCategory: async (dto: CreateCategoryDto): Promise<CategoryDto> =>
+    apiRequest('/admin/categories', {
+      method: 'POST',
+      body: JSON.stringify(dto),
+    }),
+
+  getAllCategories: async (): Promise<CategoryDto[]> =>
+    apiRequest('/admin/categories', {
+      method: 'GET',
+    }),
+
+  getCategoryById: async (id: string): Promise<CategoryDto> =>
+    apiRequest(`/admin/categories/${id}`, {
+      method: 'GET',
+    }),
+
+  updateCategory: async (id: string, dto: UpdateCategoryDto): Promise<CategoryDto> =>
+    apiRequest(`/admin/categories/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(dto),
+    }),
+
+  deleteCategory: async (id: string): Promise<{ message: string }> =>
+    apiRequest(`/admin/categories/${id}`, {
+      method: 'DELETE',
+    }),
+
+  // Analytics
+  getAnalytics: async (): Promise<UsageAnalytics> =>
+    apiRequest('/admin/analytics', {
+      method: 'GET',
+    }),
+};
