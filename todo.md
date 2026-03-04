@@ -334,10 +334,10 @@
 ## PHASE 3: Admin & Analytics
 
 ### 28. Admin Dashboard (Backend)
-- [ ] Create admin routes (protected by role-based auth)
-- [ ] Create endpoint to manage investment categories
-- [ ] Create endpoint to add/edit/delete categories
-- [ ] Create endpoint to view usage analytics
+- [✔] Create admin routes (protected by role-based auth)
+- [✔] Create endpoint to manage investment categories
+- [✔] Create endpoint to add/edit/delete categories
+- [✔] Create endpoint to view usage analytics
 
 ### 29. Admin Dashboard (Frontend)
 - [ ] Create admin panel pages:
