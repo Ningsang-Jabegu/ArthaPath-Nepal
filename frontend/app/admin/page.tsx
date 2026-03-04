@@ -306,7 +306,7 @@ export default function AdminDashboard() {
 
                 {/* Recent Users */}
                 <Card title="Recent Users">
-                  <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                  <div className="space-y-3 max-h-75 overflow-y-auto">
                     {analytics.recentUsers.map((user) => (
                       <div
                         key={user.id}
