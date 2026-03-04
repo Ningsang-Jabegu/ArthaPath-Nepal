@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/context/auth-context";
+import { PostHogProvider } from "@/lib/posthog";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -59,9 +60,11 @@ export default function RootLayout({
             `,
           }}
         />
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <PostHogProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </PostHogProvider>
       </body>
     </html>
   );

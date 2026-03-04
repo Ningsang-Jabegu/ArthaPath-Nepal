@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { AppLayout, EducationPage, Card } from '@/components';
 import { EducationArticleDto } from '@/lib/api';
+import { trackEvent } from '@/lib/analytics';
 
 const riskColors: Record<string, string> = {
   high: 'bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300',
@@ -55,6 +56,13 @@ export default function EducationDetailPage() {
         if (!foundArticle) throw new Error('Article not found');
 
         setArticle(foundArticle);
+        
+        // Track article view
+        trackEvent('article_viewed', {
+          article_id: foundArticle.id,
+          article_title: foundArticle.title,
+          category: foundArticle.category,
+        });
       } catch (err) {
         setError(
           err instanceof Error ? err.message : 'Failed to load article'

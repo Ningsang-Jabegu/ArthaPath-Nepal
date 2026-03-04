@@ -1,9 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { initializeSentry } from './sentry.config';
+import { SentryExceptionFilter } from './filters/sentry-exception.filter';
+import { WinstonModule } from 'nest-winston';
+import winstonConfig from './config/winston.config';
+
+// Initialize Sentry before anything else
+initializeSentry();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger(winstonConfig),
+  });
+  
+  // Apply Sentry exception filter globally
+  app.useGlobalFilters(new SentryExceptionFilter());
   
   // Enable CORS
   app.enableCors({

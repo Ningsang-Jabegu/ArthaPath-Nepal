@@ -14,6 +14,7 @@ import {
   type SavedPlanResponseDto,
 } from '@/lib/api';
 import { AllocationPieChart, ProjectionLineChart } from '@/components/charts';
+import { trackEvent } from '@/lib/analytics';
 
 const STORAGE_KEY = 'arthapath-simulator-form';
 
@@ -89,6 +90,13 @@ export default function Dashboard() {
       has_emergency_fund: plan.has_emergency_fund,
     });
     setShowSavedPlans(false);
+    
+    // Track plan load
+    trackEvent('plan_loaded', {
+      plan_id: plan.id,
+      plan_name: plan.plan_name,
+      risk_profile: plan.risk_profile,
+    });
   };
 
   useEffect(() => {

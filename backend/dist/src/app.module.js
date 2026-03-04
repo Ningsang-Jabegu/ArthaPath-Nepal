@@ -28,7 +28,11 @@ const saved_plan_module_1 = require("./saved-plan/saved-plan.module");
 const education_module_1 = require("./education/education.module");
 const explore_module_1 = require("./explore/explore.module");
 const admin_module_1 = require("./admin/admin.module");
+const http_logger_middleware_1 = require("./middleware/http-logger.middleware");
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer.apply(http_logger_middleware_1.HttpLoggerMiddleware).forRoutes('*');
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([

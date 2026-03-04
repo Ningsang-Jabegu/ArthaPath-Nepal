@@ -6,6 +6,7 @@ import { Button } from './button';
 import { Input } from './input';
 import { savedPlansApi, SavedPlanResponseDto, SavePlanDto } from '@/lib/api';
 import type { SimulatorResultDto, SimulatorInputDto } from '@/lib/api';
+import { trackEvent } from '@/lib/analytics';
 
 interface SavePlanModalProps {
   isOpen: boolean;
@@ -77,6 +78,15 @@ export function SavePlanModal({
 
       const savedPlan = await savedPlansApi.savePlan(payload);
       setSuccess(true);
+      
+      // Track successful plan save
+      trackEvent('plan_saved', {
+        plan_name: planName.trim(),
+        risk_profile: simulationResult.risk_profile,
+        initial_capital: formData.initial_capital,
+        duration_years: formData.duration_years,
+      });
+      
       onSaveSuccess?.(savedPlan);
 
       // Reset form and close after 1.5 seconds

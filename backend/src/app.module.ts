@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './entities/user.entity';
@@ -19,6 +20,7 @@ import { SavedPlanModule } from './saved-plan/saved-plan.module';
 import { EducationModule } from './education/education.module';
 import { ExploreModule } from './explore/explore.module';
 import { AdminModule } from './admin/admin.module';
+import { HttpLoggerMiddleware } from './middleware/http-logger.middleware';
 
 @Module({
   imports: [
@@ -62,4 +64,8 @@ import { AdminModule } from './admin/admin.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(HttpLoggerMiddleware).forRoutes('*');
+  }
+}

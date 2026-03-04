@@ -3,6 +3,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { AuthContextType, AuthResponse, UserDto } from '@/types/auth';
 import { authApi, clearTokens, setTokens, getAccessToken } from '@/lib/api';
+import { trackEvent } from '@/lib/analytics';
+import posthog from '@/lib/posthog';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -46,6 +48,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       setTokens(response.access_token, response.refresh_token);
       setUser(response.user);
+      
+      // Track successful login
+      trackEvent('user_logged_in');
+      
+      // Identify user in PostHog
+      if (posthog.__loaded) {
+        posthog.identify(response.user.id, {
+          email: response.user.email,
+          name: response.user.name,
+        });
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Login failed';
       setError(message);
@@ -75,6 +88,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       setTokens(response.access_token, response.refresh_token);
       setUser(response.user);
+      
+      // Track successful signup
+      trackEvent('user_signed_up');
+      
+      // Identify user in PostHog
+      if (posthog.__loaded) {
+        posthog.identify(response.user.id, {
+          email: response.user.email,
+          name: response.user.name,
+        });
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Registration failed';
       setError(message);
@@ -88,6 +112,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    * Logout handler
    */
   const logout = () => {
+    // Track logout
+    trackEvent('user_logged_out');
+    
+    // Reset PostHog identity
+    if (posthog.__loaded) {
+      posthog.reset();
+    }
+    
     clearTokens();
     setUser(null);
     setError(null);
