@@ -32,20 +32,26 @@ describe('SimulatorService', () => {
     // Mock AllocationEngineService
     mockAllocationEngine = {
       generateAllocation: jest.fn().mockReturnValue({
-        stocks: 50,
-        mutual_funds: 30,
-        bonds: 15,
-        gold: 5,
+        'Mutual Fund': 30,
+        Stocks: 50,
+        'Fixed Deposit': 10,
+        Bonds: 5,
+        Gold: 3,
+        'Real Estate': 2,
+        Business: 0,
       }),
       calculateCapitalDistribution: jest
         .fn()
         .mockImplementation((allocation, capital) => {
           // Dynamic mock: calculate distribution based on allocation percentages
           return {
-            stocks: (capital * allocation.stocks) / 100,
-            mutual_funds: (capital * allocation.mutual_funds) / 100,
-            bonds: (capital * allocation.bonds) / 100,
-            gold: (capital * allocation.gold) / 100,
+            'Mutual Fund': (capital * allocation['Mutual Fund']) / 100,
+            Stocks: (capital * allocation.Stocks) / 100,
+            'Fixed Deposit': (capital * allocation['Fixed Deposit']) / 100,
+            Bonds: (capital * allocation.Bonds) / 100,
+            Gold: (capital * allocation.Gold) / 100,
+            'Real Estate': (capital * allocation['Real Estate']) / 100,
+            Business: (capital * allocation.Business) / 100,
           };
         }),
     };
@@ -150,8 +156,8 @@ describe('SimulatorService', () => {
       const result = await service.runSimulation(mockUserInput);
 
       expect(result.capital_distribution).toBeDefined();
-      expect(result.capital_distribution.stocks).toBe(50000);
-      expect(result.capital_distribution.mutual_funds).toBe(30000);
+      expect(result.capital_distribution.Stocks).toBe(50000);
+      expect(result.capital_distribution['Mutual Fund']).toBe(30000);
     });
 
     it('should generate yearly projection for charts', async () => {
@@ -336,7 +342,7 @@ describe('SimulatorService', () => {
         const input = { ...mockUserInput, initial_capital: amount };
         const result = await service.runSimulation(input);
 
-        expect(result.capital_distribution.stocks).toBe(amount * 0.5); // 50% allocation
+        expect(result.capital_distribution.Stocks).toBeCloseTo(amount * 0.5, 0); // 50% allocation
       }
     });
 

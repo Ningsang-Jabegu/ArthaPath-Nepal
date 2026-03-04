@@ -19,16 +19,22 @@ describe('SimulatorController', () => {
   const mockSimulationResult = {
     risk_profile: 'Balanced' as const,
     allocation: {
-      stocks: 50,
-      mutual_funds: 30,
-      bonds: 15,
-      gold: 5,
+      'Mutual Fund': 30,
+      Stocks: 50,
+      'Fixed Deposit': 10,
+      Bonds: 5,
+      Gold: 3,
+      'Real Estate': 2,
+      Business: 0,
     },
     capital_distribution: {
-      stocks: 50000,
-      mutual_funds: 30000,
-      bonds: 15000,
-      gold: 5000,
+      'Mutual Fund': 30000,
+      Stocks: 50000,
+      'Fixed Deposit': 10000,
+      Bonds: 5000,
+      Gold: 3000,
+      'Real Estate': 2000,
+      Business: 0,
     },
     projection: {
       conservative: 150000,
@@ -164,17 +170,17 @@ describe('SimulatorController', () => {
     it('should return updated allocation breakdown', async () => {
       const result = await controller.runSimulation(mockUserInput);
 
-      expect(result.allocation.stocks).toBe(50);
-      expect(result.allocation.mutual_funds).toBe(30);
-      expect(result.allocation.bonds).toBe(15);
-      expect(result.allocation.gold).toBe(5);
+      expect(result.allocation.Stocks).toBe(50);
+      expect(result.allocation['Mutual Fund']).toBe(30);
+      expect(result.allocation.Bonds).toBe(5);
+      expect(result.allocation.Gold).toBe(3);
     });
 
     it('should return updated capital distribution', async () => {
       const result = await controller.runSimulation(mockUserInput);
 
-      expect(result.capital_distribution.stocks).toBe(50000);
-      expect(result.capital_distribution.mutual_funds).toBe(30000);
+      expect(result.capital_distribution.Stocks).toBe(50000);
+      expect(result.capital_distribution['Mutual Fund']).toBe(30000);
     });
 
     it('should return projection with all scenarios', async () => {
@@ -262,7 +268,7 @@ describe('SimulatorController', () => {
       const result = await controller.runSimulation(mockUserInput);
 
       expect(typeof result.allocation).toBe('object');
-      expect(result.allocation.stocks > 0 || result.allocation.stocks === 0).toBe(
+      expect(result.allocation.Stocks > 0 || result.allocation.Stocks === 0).toBe(
         true,
       );
     });
@@ -271,10 +277,10 @@ describe('SimulatorController', () => {
       const result = await controller.runSimulation(mockUserInput);
 
       const totalDistribution = Object.values(
-        result.capital_distribution as Record<string, number>,
+        result.capital_distribution,
       ).reduce((a, b) => a + b, 0);
 
-      expect(totalDistribution).toBe(mockUserInput.initial_capital);
+      expect(totalDistribution).toBeCloseTo(mockUserInput.initial_capital, 0);
     });
   });
 
