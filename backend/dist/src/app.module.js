@@ -18,12 +18,14 @@ const user_preference_entity_1 = require("./entities/user-preference.entity");
 const investment_category_entity_1 = require("./entities/investment-category.entity");
 const simulation_history_entity_1 = require("./entities/simulation-history.entity");
 const saved_plan_entity_1 = require("./entities/saved-plan.entity");
+const education_article_entity_1 = require("./entities/education-article.entity");
 const simulator_module_1 = require("./simulator/simulator.module");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
 const investment_category_module_1 = require("./investment-category/investment-category.module");
 const ai_explanation_module_1 = require("./ai-explanation/ai-explanation.module");
 const saved_plan_module_1 = require("./saved-plan/saved-plan.module");
+const education_module_1 = require("./education/education.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -46,7 +48,14 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.DB_USERNAME || 'postgres',
                 password: process.env.DB_PASSWORD || 'postgres',
                 database: process.env.DB_DATABASE || 'arthapath_nepal',
-                entities: [user_entity_1.User, user_preference_entity_1.UserPreference, investment_category_entity_1.InvestmentCategory, simulation_history_entity_1.SimulationHistory, saved_plan_entity_1.SavedPlan],
+                entities: [
+                    user_entity_1.User,
+                    user_preference_entity_1.UserPreference,
+                    investment_category_entity_1.InvestmentCategory,
+                    simulation_history_entity_1.SimulationHistory,
+                    saved_plan_entity_1.SavedPlan,
+                    education_article_entity_1.EducationArticle,
+                ],
                 synchronize: process.env.NODE_ENV === 'development',
                 logging: process.env.NODE_ENV === 'development',
             }),
@@ -56,6 +65,7 @@ exports.AppModule = AppModule = __decorate([
             investment_category_module_1.InvestmentCategoryModule,
             ai_explanation_module_1.AiExplanationModule,
             saved_plan_module_1.SavedPlanModule,
+            education_module_1.EducationModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
