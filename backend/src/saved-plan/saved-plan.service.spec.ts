@@ -39,7 +39,7 @@ describe('SavedPlanService', () => {
     ...mockSavePlanDto,
     created_at: new Date('2026-01-01'),
     updated_at: new Date('2026-01-01'),
-    user: null,
+    user: undefined as any,
   };
 
   const mockRepository = {
