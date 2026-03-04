@@ -9,12 +9,14 @@ import { UserPreference } from './entities/user-preference.entity';
 import { InvestmentCategory } from './entities/investment-category.entity';
 import { SimulationHistory } from './entities/simulation-history.entity';
 import { SavedPlan } from './entities/saved-plan.entity';
+import { EducationArticle } from './entities/education-article.entity';
 import { SimulatorModule } from './simulator/simulator.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { InvestmentCategoryModule } from './investment-category/investment-category.module';
 import { AiExplanationModule } from './ai-explanation/ai-explanation.module';
 import { SavedPlanModule } from './saved-plan/saved-plan.module';
+import { EducationModule } from './education/education.module';
 
 @Module({
   imports: [
@@ -34,7 +36,14 @@ import { SavedPlanModule } from './saved-plan/saved-plan.module';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_DATABASE || 'arthapath_nepal',
-      entities: [User, UserPreference, InvestmentCategory, SimulationHistory, SavedPlan],
+      entities: [
+        User,
+        UserPreference,
+        InvestmentCategory,
+        SimulationHistory,
+        SavedPlan,
+        EducationArticle,
+      ],
       synchronize: process.env.NODE_ENV === 'development', // Only in development!
       logging: process.env.NODE_ENV === 'development',
     }),
@@ -44,6 +53,7 @@ import { SavedPlanModule } from './saved-plan/saved-plan.module';
     InvestmentCategoryModule,
     AiExplanationModule,
     SavedPlanModule,
+    EducationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

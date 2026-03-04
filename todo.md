@@ -269,22 +269,22 @@
 ## PHASE 2.2: Educational Module
 
 ### 24. Education Module - Content & Database (Backend)
-- [ ] Create EducationArticle entity (title, category, content, risk_icon, image)
-- [ ] Create articles for each investment category:
-  - [ ] Stocks - What it is, how it works in Nepal, risks, pros/cons, suitable profiles, worst-case
-  - [ ] Mutual Funds - (same structure)
-  - [ ] Bonds - (same structure)
-  - [ ] Fixed Deposit - (same structure)
-  - [ ] Gold - (same structure)
-  - [ ] Real Estate - (same structure)
-  - [ ] Business - (same structure)
-- [ ] Create general education articles:
-  - [ ] Risk & Diversification
-  - [ ] Compound Interest Explained
-  - [ ] Time Horizon Importance
-  - [ ] Emergency Fund Best Practices
-- [ ] Create endpoint to retrieve all articles
-- [ ] Create endpoint to filter articles by category
+- [✔] Create EducationArticle entity (title, category, content, risk_icon, image)
+- [✔] Create articles for each investment category:
+  - [✔] Stocks - What it is, how it works in Nepal, risks, pros/cons, suitable profiles, worst-case
+  - [✔] Mutual Funds - (same structure)
+  - [✔] Bonds - (same structure)
+  - [✔] Fixed Deposit - (same structure)
+  - [✔] Gold - (same structure)
+  - [✔] Real Estate - (same structure)
+  - [✔] Business - (same structure)
+- [✔] Create general education articles:
+  - [✔] Risk & Diversification
+  - [✔] Compound Interest Explained
+  - [✔] Time Horizon Importance
+  - [✔] Emergency Fund Best Practices
+- [✔] Create endpoint to retrieve all articles
+- [✔] Create endpoint to filter articles by category
 
 ### 25. Education Page - Frontend
 - [ ] Create Education page layout
