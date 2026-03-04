@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { ProtectedRoute } from '@/components/protected-route';
-import { AppLayout, DashboardPage, Card, Button } from '@/components';
+import { AppLayout, DashboardPage, Card, Button, ExplanationPanel } from '@/components';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import {
@@ -297,22 +297,12 @@ export default function Dashboard() {
               </div>
             </Card>
 
-            {/* AI Explanation Placeholder */}
-            <Card title="AI Explanation (Coming Soon)">
-              <div className="space-y-3">
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  AI-generated insights for your allocation and risk profile will appear here.
-                </p>
-                <ul className="list-disc pl-5" style={{ color: 'var(--color-text-secondary)' }}>
-                  <li>Why this risk profile matches your inputs</li>
-                  <li>How your timeline affects allocation</li>
-                  <li>What drives the conservative vs optimistic gap</li>
-                </ul>
-                <p className="text-sm" style={{ color: 'var(--color-text-tertiary)' }}>
-                  This section will be connected in Phase 2 (AI Explanation Module).
-                </p>
-              </div>
-            </Card>
+            {/* AI Explanation Panel */}
+            <ExplanationPanel
+              simulationResult={simulationResult}
+              formData={formData}
+              explanationType="narrative"
+            />
           </div>
         </DashboardPage>
       </AppLayout>

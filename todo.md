@@ -196,11 +196,11 @@
 - [✔] Write tests to ensure no price predictions in output
 
 ### 18. AI Explanation UI (Frontend)
-- [ ] Create ExplanationPanel component
-- [ ] Display AI-generated text in formatted markdown
-- [ ] Add loading state during API call
-- [ ] Implement error fallback (non-AI explanation)
-- [ ] Add disclaimer badge/footer to explanation
+- [✔] Create ExplanationPanel component
+- [✔] Display AI-generated text in formatted markdown
+- [✔] Add loading state during API call
+- [✔] Implement error fallback (non-AI explanation)
+- [✔] Add disclaimer badge/footer to explanation
 
 ### 19. Save Plan Feature (Backend)
 - [ ] Create SavedPlan entity (user_id, allocation_data, projection_data, created_at)

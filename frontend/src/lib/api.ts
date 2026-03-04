@@ -281,3 +281,36 @@ export const simulatorApi = {
       body: JSON.stringify(payload),
     }),
 };
+export interface AiExplanationRequestDto {
+  risk_profile: string;
+  allocation: Record<string, number>;
+  capital_distribution: Record<string, number>;
+  projection: {
+    conservative: number;
+    expected: number;
+    optimistic: number;
+    total_contributions: number;
+  };
+  time_horizon: number;
+  monthly_contribution?: number;
+  risk_tolerance: string;
+  liquidity_need: string;
+  explanation_type?: 'allocation' | 'risk_profile' | 'time_horizon' | 'narrative';
+}
+
+export interface AiExplanationResponseDto {
+  explanation: string;
+  type: string;
+  generated_at: Date;
+  model: string;
+}
+
+export const aiExplanationApi = {
+  generateExplanation: async (
+    payload: AiExplanationRequestDto,
+  ): Promise<AiExplanationResponseDto> =>
+    apiRequest<AiExplanationResponseDto>('/ai-explanation/generate', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+};
