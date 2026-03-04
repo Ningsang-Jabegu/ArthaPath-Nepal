@@ -287,17 +287,17 @@
 - [✔] Create endpoint to filter articles by category
 
 ### 25. Education Page - Frontend
-- [ ] Create Education page layout
-- [ ] Display article cards in grid:
-  - [ ] Title
-  - [ ] Category tag
-  - [ ] Risk icon indicator
-  - [ ] Brief preview
-  - [ ] "Read More" button
-- [ ] Implement category filter
-- [ ] Implement search functionality
-- [ ] Create article detail page
-- [ ] Format article content with proper typography
+- [✔] Create Education page layout
+- [✔] Display article cards in grid:
+  - [✔] Title
+  - [✔] Category tag
+  - [✔] Risk icon indicator
+  - [✔] Brief preview
+  - [✔] "Read More" button
+- [✔] Implement category filter
+- [✔] Implement search functionality
+- [✔] Create article detail page
+- [✔] Format article content with proper typography
 
 ---
 
