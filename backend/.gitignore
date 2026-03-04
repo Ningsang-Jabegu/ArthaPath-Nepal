@@ -1,0 +1,41 @@
+# Backend .gitignore
+
+# Environment variables - NEVER commit
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# Database files (local development)
+*.sqlite
+*.db
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Testing
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Uploads (if any)
+uploads/
