@@ -42,7 +42,7 @@ export class AuditLog {
   @Column()
   ip_address: string;
 
-  @Column({ length: 500, nullable: true })
+  @Column('text', { nullable: true })
   user_agent: string | null;
 
   // Store the old values for updates and deletes

@@ -114,7 +114,7 @@ let InvestmentCategoryService = class InvestmentCategoryService {
                 liquidity_score: 4,
                 lock_in_period: '3 months to 5 years',
                 minimum_capital: 1000,
-                description: 'Bank deposit product with guaranteed returns over a fixed tenure and minimal capital risk.',
+                description: 'Bank deposit product with historically stable returns over a fixed tenure and relatively low capital risk.',
             },
             {
                 name: 'Gold',

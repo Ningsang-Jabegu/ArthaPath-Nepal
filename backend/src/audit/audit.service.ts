@@ -36,7 +36,7 @@ export class AuditService {
     auditLog.user_id = context.userId;
     auditLog.user_email = context.userEmail;
     auditLog.ip_address = context.ipAddress;
-    auditLog.user_agent = context.userAgent || null;
+    auditLog.user_agent = context.userAgent ?? null;
     auditLog.new_values = newValues;
     auditLog.old_values = null;
     auditLog.change_description =
@@ -70,7 +70,7 @@ export class AuditService {
     auditLog.user_id = context.userId;
     auditLog.user_email = context.userEmail;
     auditLog.ip_address = context.ipAddress;
-    auditLog.user_agent = context.userAgent || null;
+    auditLog.user_agent = context.userAgent ?? null;
     auditLog.old_values = oldValues;
     auditLog.new_values = newValues;
     auditLog.change_description =
@@ -101,7 +101,7 @@ export class AuditService {
     auditLog.user_id = context.userId;
     auditLog.user_email = context.userEmail;
     auditLog.ip_address = context.ipAddress;
-    auditLog.user_agent = context.userAgent || null;
+    auditLog.user_agent = context.userAgent ?? null;
     auditLog.old_values = oldValues;
     auditLog.new_values = null;
     auditLog.change_description =

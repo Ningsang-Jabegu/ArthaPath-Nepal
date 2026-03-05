@@ -20,6 +20,7 @@ async function bootstrap() {
         origin: process.env.FRONTEND_URL || 'http://localhost:3000',
         credentials: true,
     });
+    app.setGlobalPrefix('api');
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,

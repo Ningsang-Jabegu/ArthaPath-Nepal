@@ -72,7 +72,7 @@ export async function apiRequest<T>(
     });
   } catch {
     throw new Error(
-      'Unable to connect to server. Please ensure backend is running on http://localhost:3001.'
+      `Unable to connect to server. Please ensure backend is running on ${API_BASE_URL}.`
     );
   }
 
@@ -94,7 +94,7 @@ export async function apiRequest<T>(
           });
         } catch {
           throw new Error(
-            'Unable to connect to server. Please ensure backend is running on http://localhost:3001.'
+            `Unable to connect to server. Please ensure backend is running on ${API_BASE_URL}.`
           );
         }
 
