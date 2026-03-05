@@ -6,5 +6,5 @@ export declare class AuthController {
     register(registerDto: RegisterDto): Promise<AuthResponse>;
     login(loginDto: LoginDto): Promise<AuthResponse>;
     refresh(user: any): Promise<AuthResponse>;
-    getProfile(user: any): Promise<import("../entities/user.entity").User | null>;
+    getProfile(user: any): Promise<any>;
 }

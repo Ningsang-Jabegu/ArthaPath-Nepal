@@ -1,8 +1,15 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EducationArticle } from '../entities/education-article.entity';
 import { FilterEducationArticleDto } from './dto/filter-education-article.dto';
+
+interface PaginatedResult<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+}
 
 @Injectable()
 export class EducationService implements OnModuleInit {
@@ -15,10 +22,26 @@ export class EducationService implements OnModuleInit {
     await this.seedArticlesIfEmpty();
   }
 
-  async findAll(): Promise<EducationArticle[]> {
-    return this.educationArticleRepository.find({
-      order: { title: 'ASC' },
-    });
+  async findAll(page?: number, limit?: number): Promise<PaginatedResult<EducationArticle>> {
+    const pageNum = Math.max(1, page || 1);
+    const limitNum = Math.min(100, Math.max(1, limit || 20));
+    const skip = (pageNum - 1) * limitNum;
+
+    const [data, total] = await Promise.all([
+      this.educationArticleRepository.find({
+        select: ['id', 'title', 'category', 'created_at'],
+        order: { title: 'ASC' },
+        skip,
+        take: limitNum,
+      }),
+      this.educationArticleRepository.count(),
+    ]);
+
+    return { data, total, page: pageNum, limit: limitNum };
+  }
+
+  async findOne(id: string): Promise<EducationArticle> {
+    return this.educationArticleRepository.findOne({ where: { id } });
   }
 
   async filter(

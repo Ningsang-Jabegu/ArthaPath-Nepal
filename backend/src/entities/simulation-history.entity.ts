@@ -5,11 +5,13 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { User } from './user.entity';
 
 @Entity('simulation_history')
-export class SimulationHistory {
+@Index(['user_id', 'created_at'])
+@Index(['user_id'])
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

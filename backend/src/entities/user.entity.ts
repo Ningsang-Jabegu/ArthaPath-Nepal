@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 export enum UserRole {
@@ -12,7 +13,8 @@ export enum UserRole {
 }
 
 @Entity('users')
-export class User {
+@Index(['email'])
+@Index(['created_at'])
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

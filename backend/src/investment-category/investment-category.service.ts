@@ -19,6 +19,17 @@ export class InvestmentCategoryService implements OnModuleInit {
 
   async findAll(): Promise<InvestmentCategory[]> {
     return this.investmentCategoryRepository.find({
+      select: [
+        'id',
+        'name',
+        'type',
+        'risk_level',
+        'expected_return_min',
+        'expected_return_max',
+        'liquidity_score',
+        'lock_in_period_months',
+        'minimum_capital',
+      ],
       order: { name: 'ASC' },
     });
   }

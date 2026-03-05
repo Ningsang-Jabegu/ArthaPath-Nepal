@@ -8,6 +8,7 @@ const common_1 = require("@nestjs/common");
 const app_module_1 = require("./app.module");
 const sentry_config_1 = require("./sentry.config");
 const sentry_exception_filter_1 = require("./filters/sentry-exception.filter");
+const cache_interceptor_1 = require("./common/interceptors/cache.interceptor");
 const nest_winston_1 = require("nest-winston");
 const winston_config_1 = __importDefault(require("./config/winston.config"));
 (0, sentry_config_1.initializeSentry)();
@@ -16,6 +17,7 @@ async function bootstrap() {
         logger: nest_winston_1.WinstonModule.createLogger(winston_config_1.default),
     });
     app.useGlobalFilters(new sentry_exception_filter_1.SentryExceptionFilter());
+    app.useGlobalInterceptors(new cache_interceptor_1.CacheInterceptor());
     app.enableCors({
         origin: process.env.FRONTEND_URL || 'http://localhost:3000',
         credentials: true,

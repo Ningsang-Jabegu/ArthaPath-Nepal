@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { initializeSentry } from './sentry.config';
 import { SentryExceptionFilter } from './filters/sentry-exception.filter';
+import { CacheInterceptor } from './common/interceptors/cache.interceptor';
 import { WinstonModule } from 'nest-winston';
 import winstonConfig from './config/winston.config';
 
@@ -16,6 +17,9 @@ async function bootstrap() {
   
   // Apply Sentry exception filter globally
   app.useGlobalFilters(new SentryExceptionFilter());
+  
+  // Apply cache interceptor for static pages
+  app.useGlobalInterceptors(new CacheInterceptor());
   
   // Enable CORS
   app.enableCors({
