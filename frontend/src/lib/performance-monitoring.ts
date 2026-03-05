@@ -3,6 +3,18 @@
  * Integrates with Sentry for error tracking
  */
 
+// Declare global types for external libraries
+declare global {
+  interface Window {
+    posthog?: {
+      capture: (event: string, properties: Record<string, any>) => void;
+    };
+    Sentry?: {
+      captureMessage: (message: string, level: string) => void;
+    };
+  }
+}
+
 export interface WebVital {
   name: string;
   value: number;
@@ -17,7 +29,7 @@ export interface WebVital {
  */
 function sendToAnalytics(metric: WebVital) {
   // Send to PostHog or your preferred analytics
-  if (window.posthog) {
+  if (typeof window !== 'undefined' && window.posthog) {
     window.posthog.capture('web_vital', {
       metric: metric.name,
       value: metric.value,
@@ -26,7 +38,7 @@ function sendToAnalytics(metric: WebVital) {
   }
 
   // Send to Sentry for performance tracking
-  if (window.Sentry) {
+  if (typeof window !== 'undefined' && window.Sentry) {
     window.Sentry.captureMessage(`Web Vital: ${metric.name}=${metric.value}`, 'info');
   }
 
@@ -50,7 +62,7 @@ export function initializePerformanceMonitoring() {
       // Track Largest Contentful Paint (LCP)
       const lcpObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
-        const lastEntry = entries[entries.length - 1];
+        const lastEntry = entries[entries.length - 1] as any;
         console.log('LCP:', lastEntry.renderTime || lastEntry.loadTime);
       });
       lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
@@ -59,8 +71,9 @@ export function initializePerformanceMonitoring() {
       let clsValue = 0;
       const clsObserver = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          if (!('hadRecentInput' in entry) || !entry.hadRecentInput) {
-            clsValue += entry.value;
+          const layoutEntry = entry as any;
+          if (!('hadRecentInput' in layoutEntry) || !layoutEntry.hadRecentInput) {
+            clsValue += layoutEntry.value;
             console.log('CLS:', clsValue);
           }
         }
@@ -70,7 +83,8 @@ export function initializePerformanceMonitoring() {
       // Track First Input Delay (FID)
       const fidObserver = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          console.log('FID:', entry.processingDuration);
+          const fidEntry = entry as any;
+          console.log('FID:', fidEntry.processingDuration);
         }
       });
       fidObserver.observe({ entryTypes: ['first-input'] });
