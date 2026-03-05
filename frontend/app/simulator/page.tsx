@@ -1,7 +1,13 @@
 'use client';
 
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import { AppLayout, SimulatorPage as SimulatorPageLayout, Card, Button } from '@/components';
+import {
+  AppLayout,
+  SimulatorPage as SimulatorPageLayout,
+  Card,
+  Button,
+  RiskWarningModal,
+} from '@/components';
 import {
   simulatorApi,
   SimulatorInputDto,
@@ -15,6 +21,7 @@ import {
 } from '@/lib/analytics';
 
 const STORAGE_KEY = 'arthapath-simulator-form';
+const RISK_ACK_KEY = 'arthapath-risk-warning-acknowledged';
 
 const defaultForm: SimulatorInputDto = {
   initial_capital: 100000,
@@ -35,10 +42,21 @@ export default function SimulatorPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState('');
   const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(null);
+  const [showRiskWarning, setShowRiskWarning] = useState(false);
+  const [riskAcknowledged, setRiskAcknowledged] = useState(false);
+  const [pendingRiskTolerance, setPendingRiskTolerance] = useState<
+    SimulatorInputDto['risk_tolerance'] | null
+  >(null);
 
   // Load saved form on mount
   useEffect(() => {
     const savedForm = localStorage.getItem(STORAGE_KEY);
+    const riskAck = localStorage.getItem(RISK_ACK_KEY);
+
+    if (riskAck === 'true') {
+      setRiskAcknowledged(true);
+    }
+
     if (!savedForm) return;
 
     try {
@@ -114,6 +132,33 @@ export default function SimulatorPage() {
 
     // Run simulation with default values
     runSimulation(defaultForm);
+  };
+
+  const handleRiskSelection = (risk: SimulatorInputDto['risk_tolerance']) => {
+    if (risk === 'High' && !riskAcknowledged) {
+      setPendingRiskTolerance(risk);
+      setShowRiskWarning(true);
+      return;
+    }
+
+    handleInputChange({
+      ...formData,
+      risk_tolerance: risk,
+    });
+  };
+
+  const handleRiskWarningAcknowledge = () => {
+    setRiskAcknowledged(true);
+    localStorage.setItem(RISK_ACK_KEY, 'true');
+    setShowRiskWarning(false);
+
+    if (pendingRiskTolerance) {
+      handleInputChange({
+        ...formData,
+        risk_tolerance: pendingRiskTolerance,
+      });
+      setPendingRiskTolerance(null);
+    }
   };
 
   // Chart data
@@ -276,12 +321,7 @@ export default function SimulatorPage() {
                   {(['Low', 'Medium', 'High'] as const).map((risk) => (
                     <button
                       key={risk}
-                      onClick={() =>
-                        handleInputChange({
-                          ...formData,
-                          risk_tolerance: risk,
-                        })
-                      }
+                      onClick={() => handleRiskSelection(risk)}
                       className={`px-(--spacing-md) py-(--spacing-sm) rounded-md font-medium transition-colors ${
                         formData.risk_tolerance === risk
                           ? 'bg-(--color-primary) text-(--color-background)'
@@ -292,6 +332,9 @@ export default function SimulatorPage() {
                     </button>
                   ))}
                 </div>
+                <p className="mt-(--spacing-sm) text-xs text-(--color-text-secondary)">
+                  Higher risk selections can lead to larger swings and potential capital loss.
+                </p>
               </div>
 
               {/* Liquidity Need */}
@@ -454,6 +497,16 @@ export default function SimulatorPage() {
           </div>
         </div>
       </SimulatorPageLayout>
+
+      <RiskWarningModal
+        isOpen={showRiskWarning}
+        onClose={() => {
+          setShowRiskWarning(false);
+          setPendingRiskTolerance(null);
+        }}
+        onAcknowledge={handleRiskWarningAcknowledge}
+        message="You selected High risk tolerance. This choice may materially increase volatility and downside risk in simulated allocations."
+      />
     </AppLayout>
   );
 }

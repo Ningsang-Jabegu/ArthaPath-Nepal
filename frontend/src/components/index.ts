@@ -11,6 +11,8 @@ export { ThemeToggle, useTheme } from './theme-toggle';
 export { SimpleThemeToggle } from './simple-theme-toggle';
 export { AppLayout } from './app-layout';
 export { Footer } from './footer';
+export { DisclaimerBanner } from './disclaimer-banner';
+export { RiskWarningModal } from './risk-warning-modal';
 export { ExplanationPanel } from './explanation-panel';
 export {
   PageTemplate,

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './header';
 import { Sidebar } from './sidebar';
 import { Footer } from './footer';
+import { DisclaimerBanner } from './disclaimer-banner';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -36,6 +37,8 @@ export function AppLayout({ children }: AppLayoutProps) {
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         sidebarOpen={sidebarOpen}
       />
+
+      <DisclaimerBanner />
 
       <div className="flex flex-1">
         {/* Sidebar */}

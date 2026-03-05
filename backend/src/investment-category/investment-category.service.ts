@@ -121,7 +121,7 @@ export class InvestmentCategoryService implements OnModuleInit {
         lock_in_period: '3 months to 5 years',
         minimum_capital: 1000,
         description:
-          'Bank deposit product with guaranteed returns over a fixed tenure and minimal capital risk.',
+          'Bank deposit product with historically stable returns over a fixed tenure and relatively low capital risk.',
       },
       {
         name: 'Gold',

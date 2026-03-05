@@ -95,6 +95,10 @@ export default function Explore() {
     <AppLayout>
       <ExplorePage>
         <div className="space-y-6">
+          <div className="rounded-md border border-amber-300/50 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200">
+            Investment opportunities shown here are educational references. Returns are estimated ranges and not guaranteed outcomes.
+          </div>
+
           {error && (
             <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/40 rounded-md">
               <p className="text-sm font-medium text-red-700 dark:text-red-400">{error}</p>
@@ -322,6 +326,12 @@ export default function Explore() {
                       <p className="text-sm text-(--color-text-secondary) line-clamp-2">
                         {opp.description}
                       </p>
+
+                      {opp.risk_level === 'High' && (
+                        <div className="rounded border border-red-300/60 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 dark:border-red-800/70 dark:bg-red-950/40 dark:text-red-300">
+                          High-risk option: review downside scenarios before investing.
+                        </div>
+                      )}
 
                       {/* Metrics Grid */}
                       <div className="grid grid-cols-2 gap-3 pt-2 border-t border-(--color-border)">

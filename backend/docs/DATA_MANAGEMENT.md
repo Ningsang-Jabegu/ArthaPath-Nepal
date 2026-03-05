@@ -56,7 +56,7 @@ Investment categories are automatically seeded into the database on application 
 - **Liquidity Score**: 4/10
 - **Lock-in Period**: 3 months to 5 years
 - **Minimum Capital**: NPR 1,000
-- **Description**: Bank deposit product with guaranteed returns over a fixed tenure and minimal capital risk.
+- **Description**: Bank deposit product with historically stable returns over a fixed tenure and relatively low capital risk.
 
 #### 5. Gold
 - **Type**: Gold

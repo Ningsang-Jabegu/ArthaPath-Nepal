@@ -367,12 +367,12 @@
 - [✔] Create audit trail for data updates
 
 ### 32. Legal & Compliance
-- [ ] Add disclaimer banner: "This platform does not provide financial advice"
-- [ ] Create Terms of Service page
-- [ ] Create Privacy Policy page
-- [ ] Add risk warning modals/badges throughout app
-- [ ] Ensure no guaranteed return messaging
-- [ ] Document compliance against SEBON regulations (future audit)
+- [✔] Add disclaimer banner: "This platform does not provide financial advice"
+- [✔] Create Terms of Service page
+- [✔] Create Privacy Policy page
+- [✔] Add risk warning modals/badges throughout app
+- [✔] Ensure no guaranteed return messaging
+- [✔] Document compliance against SEBON regulations (future audit)
 
 ---
 
