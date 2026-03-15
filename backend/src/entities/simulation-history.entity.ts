@@ -12,6 +12,7 @@ import { User } from './user.entity';
 @Entity('simulation_history')
 @Index(['user_id', 'created_at'])
 @Index(['user_id'])
+export class SimulationHistory {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

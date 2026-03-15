@@ -15,6 +15,7 @@ export enum UserRole {
 @Entity('users')
 @Index(['email'])
 @Index(['created_at'])
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

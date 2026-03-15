@@ -13,6 +13,7 @@ import { User } from './user.entity';
 @Entity('saved_plans')
 @Index(['user_id', 'created_at'])
 @Index(['user_id'])
+export class SavedPlan {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

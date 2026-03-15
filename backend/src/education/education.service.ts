@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { EducationArticle } from '../entities/education-article.entity';
 import { FilterEducationArticleDto } from './dto/filter-education-article.dto';
 
-interface PaginatedResult<T> {
+export interface PaginatedResult<T> {
   data: T[];
   total: number;
   page: number;
@@ -40,7 +40,7 @@ export class EducationService implements OnModuleInit {
     return { data, total, page: pageNum, limit: limitNum };
   }
 
-  async findOne(id: string): Promise<EducationArticle> {
+  async findOne(id: string): Promise<EducationArticle | null> {
     return this.educationArticleRepository.findOne({ where: { id } });
   }
 

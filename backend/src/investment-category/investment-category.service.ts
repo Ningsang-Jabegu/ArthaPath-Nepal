@@ -27,7 +27,7 @@ export class InvestmentCategoryService implements OnModuleInit {
         'expected_return_min',
         'expected_return_max',
         'liquidity_score',
-        'lock_in_period_months',
+        'lock_in_period',
         'minimum_capital',
       ],
       order: { name: 'ASC' },
