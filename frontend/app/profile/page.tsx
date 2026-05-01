@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { AppLayout, Card, Button } from '@/components';
 import { useAuth } from '@/context/auth-context';
-import { userApi } from '@/lib/api';
+import { getAccessToken, userApi } from '@/lib/api';
 import Link from 'next/link';
 
 export default function ProfilePage() {
@@ -14,6 +14,14 @@ export default function ProfilePage() {
   useEffect(() => {
     if (user) {
       setProfile(user);
+      setIsLoading(false);
+      return;
+    }
+
+    const token = getAccessToken();
+    if (!token) {
+      setProfile(null);
+      setIsLoading(false);
       return;
     }
 
@@ -44,6 +52,13 @@ export default function ProfilePage() {
           <Card title="Profile Details">
             {isLoading ? (
               <p className="text-body text-(--color-text-secondary)">Loading profile...</p>
+            ) : !profile ? (
+              <div className="space-y-3 text-body text-(--color-text-secondary)">
+                <p>You need to sign in to view your profile details.</p>
+                <Link href="/login" className="inline-flex">
+                  <Button variant="primary">Go to Login</Button>
+                </Link>
+              </div>
             ) : (
               <div className="space-y-4 text-body">
                 <div>

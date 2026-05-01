@@ -388,10 +388,10 @@
  - [✔] Phase 33 completed and pushed (2026-05-01)
 
 ### 34. Testing & QA
-- [ ] Write unit tests for risk calculation logic (80%+ coverage)
-- [ ] Write unit tests for allocation logic (80%+ coverage)
-- [ ] Write unit tests for projection logic (80%+ coverage)
-- [ ] Write integration tests for API endpoints
+- [✔] Write unit tests for risk calculation logic (80%+ coverage)
+- [✔] Write unit tests for allocation logic (80%+ coverage)
+- [✔] Write unit tests for projection logic (80%+ coverage)
+- [✔] Write integration tests for API endpoints
 - [ ] Write E2E tests for critical user flows:
   - [ ] Registration → Input → Dashboard
   - [ ] Simulator workflow
