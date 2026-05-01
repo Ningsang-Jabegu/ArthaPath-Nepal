@@ -182,7 +182,8 @@ export default function Education() {
 
                         {/* Preview */}
                         <p className="text-sm text-(--color-text-secondary) line-clamp-3 grow">
-                          {article.content.substring(0, 150)}...
+                          {(article.content ?? '').substring(0, 150)}
+                          {(article.content ?? '').length > 150 ? '...' : ''}
                         </p>
 
                         {/* Read More Button */}
