@@ -397,8 +397,8 @@
   - [✔] Simulator workflow (created)
   - [✔] Save plan workflow (created)
 - [✔] Create QA testing checklist
-- [ ] Manual testing of dark/light mode switching
-- [ ] Mobile responsiveness testing
+- [✔] Manual testing of dark/light mode switching
+- [✔] Mobile responsiveness testing
 
 ---
 

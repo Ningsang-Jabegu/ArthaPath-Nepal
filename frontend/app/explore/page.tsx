@@ -95,7 +95,7 @@ export default function Explore() {
     <AppLayout>
       <ExplorePage>
         <div className="space-y-6">
-          <div className="rounded-md border border-amber-300/50 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200">
+          <div className="rounded-md border border-amber-400 bg-amber-100 p-3 text-sm text-amber-950 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200">
             Investment opportunities shown here are educational references. Returns are estimated ranges and not guaranteed outcomes.
           </div>
 
