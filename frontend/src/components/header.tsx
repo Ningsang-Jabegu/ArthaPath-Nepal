@@ -1,14 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { ThemeToggle } from './theme-toggle';
 
 interface HeaderProps {
   onMenuClick?: () => void;
   sidebarOpen?: boolean;
+  onLogout?: () => void;
 }
 
-export function Header({ onMenuClick, sidebarOpen = false }: HeaderProps) {
+export function Header({ onMenuClick, sidebarOpen = false, onLogout }: HeaderProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -56,30 +58,30 @@ export function Header({ onMenuClick, sidebarOpen = false }: HeaderProps) {
 
         {/* Navigation & Actions */}
         <nav className="hidden md:flex items-center gap-(--spacing-lg)">
-          <a
+          <Link
             href="/"
             className="text-body text-(--color-text-primary) hover:text-(--color-primary) transition-colors"
           >
             Dashboard
-          </a>
-          <a
+          </Link>
+          <Link
             href="/explore"
             className="text-body text-(--color-text-primary) hover:text-(--color-primary) transition-colors"
           >
             Explore
-          </a>
-          <a
+          </Link>
+          <Link
             href="/simulator"
             className="text-body text-(--color-text-primary) hover:text-(--color-primary) transition-colors"
           >
             Simulator
-          </a>
-          <a
+          </Link>
+          <Link
             href="/education"
             className="text-body text-(--color-text-primary) hover:text-(--color-primary) transition-colors"
           >
             Education
-          </a>
+          </Link>
         </nav>
 
         {/* Right Actions */}
@@ -100,19 +102,23 @@ export function Header({ onMenuClick, sidebarOpen = false }: HeaderProps) {
 
             {/* Dropdown Menu */}
             <div className="absolute right-0 mt-2 w-48 bg-(--color-background) border border-(--color-border) rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-              <a
+              <Link
                 href="/profile"
                 className="block px-(--spacing-md) py-(--spacing-sm) text-body text-(--color-text-primary) hover:bg-(--color-background-hover) first:rounded-t-lg"
               >
                 Profile
-              </a>
-              <a
-                href="/settings"
+              </Link>
+              <Link
+                href="/setting"
                 className="block px-(--spacing-md) py-(--spacing-sm) text-body text-(--color-text-primary) hover:bg-(--color-background-hover)"
               >
                 Settings
-              </a>
-              <button className="w-full text-left px-(--spacing-md) py-(--spacing-sm) text-body text-(--color-error) hover:bg-(--color-background-hover) last:rounded-b-lg">
+              </Link>
+              <button
+                type="button"
+                onClick={onLogout}
+                className="w-full text-left px-(--spacing-md) py-(--spacing-sm) text-body text-(--color-error) hover:bg-(--color-background-hover) last:rounded-b-lg"
+              >
                 Logout
               </button>
             </div>

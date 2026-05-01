@@ -81,7 +81,9 @@ export default function Education() {
 
   // Filter articles by category and search query
   const filteredArticles = useMemo(() => {
-    return articles.filter((article) => {
+    const safeArticles = Array.isArray(articles) ? articles : [];
+
+    return safeArticles.filter((article) => {
       const matchesCategory =
         selectedCategory === 'All' || article.category === selectedCategory;
       const matchesSearch =

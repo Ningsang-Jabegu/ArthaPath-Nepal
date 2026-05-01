@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Header } from './header';
 import { Sidebar } from './sidebar';
 import { Footer } from './footer';
 import { DisclaimerBanner } from './disclaimer-banner';
+import { useAuth } from '@/context/auth-context';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -13,6 +15,8 @@ interface AppLayoutProps {
 export function AppLayout({ children }: AppLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+  const { logout } = useAuth();
 
   useEffect(() => {
     setMounted(true);
@@ -36,6 +40,10 @@ export function AppLayout({ children }: AppLayoutProps) {
       <Header
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         sidebarOpen={sidebarOpen}
+        onLogout={() => {
+          logout();
+          router.push('/login');
+        }}
       />
 
       <DisclaimerBanner />
