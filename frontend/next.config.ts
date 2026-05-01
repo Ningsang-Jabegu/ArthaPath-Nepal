@@ -1,15 +1,20 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
+// CDN / asset prefix configuration (set via environment variables)
+const cdnDomain = process.env.NEXT_PUBLIC_CDN_DOMAIN || ""; // e.g. mycdn.example.com
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || ""; // e.g. https://mycdn.example.com
+
 const nextConfig: NextConfig = {
-  // Enable SWC minification (faster than Terser)
-  swcMinify: true,
+  assetPrefix,
 
   // Optimize images
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Allow loading images from the configured CDN domain (optional)
+    domains: cdnDomain ? [cdnDomain] : [],
   },
 
   // Enable experimental features for better performance
