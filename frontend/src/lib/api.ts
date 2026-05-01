@@ -407,9 +407,13 @@ export interface EducationArticleDto {
 
 export const educationApi = {
   getAllArticles: async (): Promise<EducationArticleDto[]> =>
-    apiRequest<EducationArticleDto[]>('/education/articles', {
-      method: 'GET',
-    }),
+    (async (): Promise<EducationArticleDto[]> => {
+      const res = await apiRequest<any>('/education/articles', { method: 'GET' });
+      // Backend returns a paginated result { data, total, page, limit }
+      if (Array.isArray(res)) return res as EducationArticleDto[];
+      if (res && Array.isArray(res.data)) return res.data as EducationArticleDto[];
+      return [];
+    })(),
 
   getArticlesByCategory: async (
     category:
