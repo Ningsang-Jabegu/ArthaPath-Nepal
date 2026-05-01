@@ -392,10 +392,11 @@
 - [✔] Write unit tests for allocation logic (80%+ coverage)
 - [✔] Write unit tests for projection logic (80%+ coverage)
 - [✔] Write integration tests for API endpoints
-- [ ] Write E2E tests for critical user flows:
-  - [ ] Registration → Input → Dashboard
-  - [ ] Simulator workflow
-  - [ ] Save plan workflow
+- [✔] Write E2E tests for critical user flows:
+  - [✔] Registration → Input → Dashboard (created)
+  - [✔] Simulator workflow (created)
+  - [✔] Save plan workflow (created)
+- [✔] Create QA testing checklist
 - [ ] Manual testing of dark/light mode switching
 - [ ] Mobile responsiveness testing
 
